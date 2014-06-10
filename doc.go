@@ -2,7 +2,7 @@
 
 Adaptation of Cmask to the Go programming language
 
-This package is an adaptation of Andre Bartetzki's cmask software for the Go
+This package is an adaptation of Andre Bartetzki's Cmask software for the Go
 programming language. It provides a library that can be imported in any Go
 program and a standalone program which uses the library. Both the library and
 the program are called gmask. This is not a problem, because Go uses different
@@ -20,11 +20,11 @@ best
 
 Andre"
 
-The gmask program reflects exactly cmask features. It has a parser that recognizes
+The gmask program reflects exactly Cmask features. It has a parser that recognizes
 the grammar written by Andre:
 http://www2.ak.tu-berlin.de/~abartetzki/CMaskMan/CMask-Reference.htm
 
-When the program is called on a parameter file respecting cmask language, it
+When the program is called on a parameter file respecting Cmask language, it
 will output a Csound sco file on standard out. One can also write the attribute
 bin="gmask" in a CsScore tag of a csd file to get the score generated on the fly
 while playing the csd file with Csound. See the examples directory in the
