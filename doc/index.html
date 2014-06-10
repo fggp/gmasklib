@@ -1,0 +1,666 @@
+<html>
+<head>
+<title>gmask</title>
+<link type="text/css" rel="stylesheet" href="style.css">
+<meta charset='utf-8'>
+</head>
+<body>
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "gmask"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				<p>
+Adaptation of Cmask to the Go programming language
+</p>
+<p>
+This package is an adaptation of Andre Bartetzki&#39;s cmask software for the Go
+programming language. It provides a library that can be imported in any Go
+program and a standalone program which uses the library. Both the library and
+the program are called gmask. This is not a problem, because Go uses different
+places to store packages (GOPATH/pkg) and compiled programs (GOPATH/bin).
+</p>
+<p>
+Cmask was published under GPL. Thanks to Andre who kindly allowed me to publish
+gmask under LGPL:
+</p>
+<p>
+&#34;Dear François,
+</p>
+<p>
+thanks for bringing Cmask to a new live!
+Yes, you may publish Gmask under LGPL.
+</p>
+<p>
+best
+</p>
+<p>
+Andre&#34;
+</p>
+<p>
+The gmask program reflects exactly cmask features. It has a parser that recognizes
+the grammar written by Andre:
+<a href="http://www2.ak.tu-berlin.de/~abartetzki/CMaskMan/CMask-Reference.htm">http://www2.ak.tu-berlin.de/~abartetzki/CMaskMan/CMask-Reference.htm</a>
+</p>
+<p>
+When the program is called on a parameter file respecting cmask language, it
+will output a Csound sco file on standard out. One can also write the attribute
+bin=&#34;gmask&#34; in a CsScore tag of a csd file to get the score generated on the fly
+while playing the csd file with Csound. See the examples directory in the
+gmask/gmask directory.
+</p>
+<p>
+The gmask library can be imported in any go program. The library is more
+permissive than the gmask program. For example, in the gmask program some
+generators can take args that are a value or a breakpoint function. In the
+library, those generators can accept for the same args a value or any generator.
+This means that you could for example create a tendency mask with a rnd
+generator as low boundarie and an osc-mask-quantizer daisy chain as high
+boundarie: in the gmask library, generators have type Generator and modifiers
+as well.
+</p>
+
+			</div>
+		</div>
+		
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+				<dd><a href="#pkg-constants">Constants</a></dd>
+			
+			
+			
+			
+				
+				<dd><a href="#AccumMode">type AccumMode</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Field">type Field</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewField">func NewField(start, end float64) *Field</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Field.AddParam">func (f *Field) AddParam(p Param)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Field.Eval">func (f *Field) Eval(dest io.Writer, fieldNum int)</a></dd>
+				
+			
+				
+				<dd><a href="#Generator">type Generator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#AccumGen">func AccumGen(gen Generator, params ...interface{}) Generator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#BpfGen">func BpfGen(points []float64, interp *Interpolation) Generator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#ConstGen">func ConstGen(v float64) Generator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#ItemGen">func ItemGen(mode ItemMode, list []float64) Generator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#MaskGen">func MaskGen(gen Generator, params ...interface{}) Generator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#OscGen">func OscGen(mode OscMode, params ...interface{}) Generator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#QuantGen">func QuantGen(gen Generator, params ...interface{}) Generator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#RangeGen">func RangeGen(min, max float64) Generator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#RndGen">func RndGen(mode RndMode, params ...interface{}) Generator</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Interpolation">type Interpolation</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewInterpolation">func NewInterpolation(val float64, cos, off bool) *Interpolation</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Interpolator">type Interpolator</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ItemMode">type ItemMode</a></dd>
+				
+				
+			
+				
+				<dd><a href="#OscMode">type OscMode</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Param">type Param</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewParam">func NewParam(num int, gen Generator, prec int) Param</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Param.Value">func (p Param) Value(t, t0, t1 float64) float64</a></dd>
+				
+			
+				
+				<dd><a href="#RndMode">type RndMode</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h4>Package files</h4>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="/target/accum.go">accum.go</a>
+			
+				<a href="/target/const.go">const.go</a>
+			
+				<a href="/target/doc.go">doc.go</a>
+			
+				<a href="/target/field.go">field.go</a>
+			
+				<a href="/target/item.go">item.go</a>
+			
+				<a href="/target/mask.go">mask.go</a>
+			
+				<a href="/target/osc.go">osc.go</a>
+			
+				<a href="/target/quant.go">quant.go</a>
+			
+				<a href="/target/rnd.go">rnd.go</a>
+			
+				<a href="/target/seg.go">seg.go</a>
+			
+				<a href="/target/types.go">types.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+			<h2 id="pkg-constants">Constants</h2>
+			
+				<pre>const <span id="SLICEINC">SLICEINC</span> = 10</pre>
+				
+			
+		
+		
+		
+		
+			
+			
+			<h2 id="AccumMode">type <a href="/target/types.go?s=1310:1328#L55">AccumMode</a></h2>
+			<pre>type AccumMode <a href="/pkg/builtin/#int">int</a></pre>
+			
+
+			
+				<pre>const (
+    <span id="ON">ON</span> <a href="#AccumMode">AccumMode</a> = <a href="/pkg/builtin/#iota">iota</a>
+    <span id="LIMIT">LIMIT</span>
+    <span id="MIRROR">MIRROR</span>
+    <span id="WRAP">WRAP</span>
+)</pre>
+				<p>
+Modes for the accumulator
+</p>
+
+			
+
+			
+
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Field">type <a href="/target/types.go?s=1412:1473#L65">Field</a></h2>
+			<pre>type Field struct {
+    Start, End <a href="/pkg/builtin/#float64">float64</a>
+    Params     []<a href="#Param">Param</a>
+}</pre>
+			
+
+			
+
+			
+
+			
+
+			
+				
+				<h3 id="NewField">func <a href="/target/field.go?s=114:154#L4">NewField</a></h3>
+				<pre>func NewField(start, end <a href="/pkg/builtin/#float64">float64</a>) *<a href="#Field">Field</a></pre>
+				<p>
+Create a new Field
+</p>
+
+				
+			
+
+			
+				
+				<h3 id="Field.AddParam">func (*Field) <a href="/target/field.go?s=401:434#L13">AddParam</a></h3>
+				<pre>func (f *<a href="#Field">Field</a>) AddParam(p <a href="#Param">Param</a>)</pre>
+				<p>
+Add a param to the field. This param corresponds to a pfield in Csound. If
+a param for that particular pfield existed already in the field, it will be
+overwritten.
+</p>
+
+				
+				
+			
+				
+				<h3 id="Field.Eval">func (*Field) <a href="/target/field.go?s=1715:1765#L57">Eval</a></h3>
+				<pre>func (f *<a href="#Field">Field</a>) Eval(dest <a href="/pkg/io/">io</a>.<a href="/pkg/io/#Writer">Writer</a>, fieldNum <a href="/pkg/builtin/#int">int</a>)</pre>
+				<p>
+Evaluate a field. The result is written into an io.Writer. This procedure is
+generally invoked from the parser in the gmask program. But one can use it
+from any go program, if the Field receiver pointer points to a valid Field
+structure.
+</p>
+
+				
+				
+			
+		
+			
+			
+			<h2 id="Generator">type <a href="/target/types.go?s=823:864#L6">Generator</a></h2>
+			<pre>type Generator func(t ...<a href="/pkg/builtin/#float64">float64</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+			<p>
+Type of the function returned by the different generator factories. A
+generator can be called with one or three float64 parameters. If the
+generator is a segment function defined with one single segment, the
+generator needs three float64 params: the current time, the start time,
+and the end time of the segment. If one of the generators in a daisy
+chain is a single segment generator, then the first generator in the
+chain has to be called with those three parameters. The other generators
+can be called with an ellipsis arg: gen(t...).
+If the generator is not a single segment generator or if it is in a daisy
+chain without any single segment generator, then it needs only one
+float64 parameter, the current time.
+</p>
+
+
+			
+
+			
+
+			
+
+			
+				
+				<h3 id="AccumGen">func <a href="/target/accum.go?s=384:445#L1">AccumGen</a></h3>
+				<pre>func AccumGen(gen <a href="#Generator">Generator</a>, params ...interface{}) <a href="#Generator">Generator</a></pre>
+				<p>
+Accumulator factory. The first argument is the generator which will send
+values to the accumulator. The second argument is the accumulator mode. The
+ON mode has no limits arguments. The other modes have a low and a high limit
+arg which can be each a single value or a generator. Finally
+an optional argument can fix the initial value of the accumulator.
+</p>
+
+				
+			
+				
+				<h3 id="BpfGen">func <a href="/target/seg.go?s=529:591#L6">BpfGen</a></h3>
+				<pre>func BpfGen(points []<a href="/pkg/builtin/#float64">float64</a>, interp *<a href="#Interpolation">Interpolation</a>) <a href="#Generator">Generator</a></pre>
+				<p>
+Segment function factory. Returns a generator.
+</p>
+<p>
+The float64 slice describes a sequence of time-value
+pairs if its length is greater than two, or one segment lasting from start
+to end of field. If no interpolation is specified, the interp pointer
+should be nil.
+</p>
+<p>
+If the float64 slice represents a single
+segment, the generator has to be called with three float64 params: current
+time, start time and end time of the segment. Otherwise, only the current
+time is needed.
+</p>
+
+				
+			
+				
+				<h3 id="ConstGen">func <a href="/target/const.go?s=117:151#L1">ConstGen</a></h3>
+				<pre>func ConstGen(v <a href="/pkg/builtin/#float64">float64</a>) <a href="#Generator">Generator</a></pre>
+				<p>
+Constant generator factory. The argument is the constant value to be returned
+by the generator.
+</p>
+
+				
+			
+				
+				<h3 id="ItemGen">func <a href="/target/item.go?s=190:243#L1">ItemGen</a></h3>
+				<pre>func ItemGen(mode <a href="#ItemMode">ItemMode</a>, list []<a href="/pkg/builtin/#float64">float64</a>) <a href="#Generator">Generator</a></pre>
+				<p>
+Item generator factory. The first arg is the item mode. The second
+arg is the list of values from which the generator will pick its return
+value.
+</p>
+
+				
+			
+				
+				<h3 id="MaskGen">func <a href="/target/mask.go?s=369:429#L1">MaskGen</a></h3>
+				<pre>func MaskGen(gen <a href="#Generator">Generator</a>, params ...interface{}) <a href="#Generator">Generator</a></pre>
+				<p>
+Tendency mask factory. The first arg is the generator which will send
+values to the mask. The second and the third arg are the low and high
+boundaries of the tendency mask. They can each be a single value or a
+generator. Finally an optional argument can fix a map
+exponent to apply a non-linear function to the mask output.
+</p>
+
+				
+			
+				
+				<h3 id="OscGen">func <a href="/target/osc.go?s=366:424#L1">OscGen</a></h3>
+				<pre>func OscGen(mode <a href="#OscMode">OscMode</a>, params ...interface{}) <a href="#Generator">Generator</a></pre>
+				<p>
+Oscillator factory. The first arg is the oscillator mode. The second arg is
+the oscillator frequency. It can be a single value or a
+generator. An optional third argument can fix the initial phase of the
+oscillator. For the power function oscillators, an optional fourth argument
+can fix the exponent which defaults to 0.
+</p>
+
+				
+			
+				
+				<h3 id="QuantGen">func <a href="/target/quant.go?s=394:455#L1">QuantGen</a></h3>
+				<pre>func QuantGen(gen <a href="#Generator">Generator</a>, params ...interface{}) <a href="#Generator">Generator</a></pre>
+				<p>
+Quantizer factory. The first argument is the generator which will send
+values to the quantizer. The second arg fixes the quantization grid interval.
+The optional third arg fixes the quantization strength (0..1) (defaults to 1),
+and an optional fourth arg fixes the offset (defaults to 0). Those three args
+can be each a single value or a generator.
+</p>
+
+				
+			
+				
+				<h3 id="RangeGen">func <a href="/target/rnd.go?s=84:125#L1">RangeGen</a></h3>
+				<pre>func RangeGen(min, max <a href="/pkg/builtin/#float64">float64</a>) <a href="#Generator">Generator</a></pre>
+				<p>
+Random number generator factory.
+</p>
+
+				
+			
+				
+				<h3 id="RndGen">func <a href="/target/rnd.go?s=1012:1070#L20">RndGen</a></h3>
+				<pre>func RndGen(mode <a href="#RndMode">RndMode</a>, params ...interface{}) <a href="#Generator">Generator</a></pre>
+				<p>
+Probability distribution generator factory. The first arg specifies the
+kind of distribution used. The params args depend on the distribution:
+UNI, LIN, RLIN, and TRI have no param.
+</p>
+<p>
+EXP, REXP, and BEXP can have one param that is
+a single value or a generator. This param has to be
+greater than 0, it defaults to 1.0.
+</p>
+<p>
+GAUSS, CAUCHY, BETA, and WEI can have to params that are each a single
+value or a generator. For GAUSS, those params are standard
+deviation and mean (0..1), and they default to 0.1 and 0.5. For CAUCHY, those
+params are spread and mean (0..1) and they default to 0.1 and 0.5. For BETA,
+those params are a and b (0..1), and they both default to 0.1. For WEI, those
+params are s (0..1) and t (&gt;0), and they default to 0.5 and 2.
+</p>
+
+				
+			
+
+			
+		
+			
+			
+			<h2 id="Interpolation">type <a href="/target/types.go?s=972:1034#L18">Interpolation</a></h2>
+			<pre>type Interpolation struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}</pre>
+			
+
+			
+
+			
+
+			
+
+			
+				
+				<h3 id="NewInterpolation">func <a href="/target/field.go?s=1237:1301#L44">NewInterpolation</a></h3>
+				<pre>func NewInterpolation(val <a href="/pkg/builtin/#float64">float64</a>, cos, off <a href="/pkg/builtin/#bool">bool</a>) *<a href="#Interpolation">Interpolation</a></pre>
+				<p>
+Create a new interpolation value.
+</p>
+
+				
+			
+
+			
+		
+			
+			
+			<h2 id="Interpolator">type <a href="/target/types.go?s=15:72#L1">Interpolator</a></h2>
+			<pre>type Interpolator func(t, t0, v0, t1, v1 <a href="/pkg/builtin/#float64">float64</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ItemMode">type <a href="/target/types.go?s=866:883#L8">ItemMode</a></h2>
+			<pre>type ItemMode <a href="/pkg/builtin/#int">int</a></pre>
+			
+
+			
+				<pre>const (
+    <span id="CYCLE">CYCLE</span> <a href="#ItemMode">ItemMode</a> = <a href="/pkg/builtin/#iota">iota</a>
+    <span id="SWING">SWING</span>
+    <span id="HEAP">HEAP</span>
+    <span id="RANDOM">RANDOM</span>
+)</pre>
+				<p>
+Modes for the item generator
+</p>
+
+			
+
+			
+
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="OscMode">type <a href="/target/types.go?s=1175:1191#L41">OscMode</a></h2>
+			<pre>type OscMode <a href="/pkg/builtin/#int">int</a></pre>
+			
+
+			
+				<pre>const (
+    <span id="SIN">SIN</span> <a href="#OscMode">OscMode</a> = <a href="/pkg/builtin/#iota">iota</a>
+    <span id="COS">COS</span>
+    <span id="SQUARE">SQUARE</span>
+    <span id="TRIANGLE">TRIANGLE</span>
+    <span id="SAWUP">SAWUP</span>
+    <span id="SAWDOWN">SAWDOWN</span>
+    <span id="POWUP">POWUP</span>
+    <span id="POWDOWN">POWDOWN</span>
+)</pre>
+				<p>
+Modes for the osc generator
+</p>
+
+			
+
+			
+
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Param">type <a href="/target/types.go?s=1475:1532#L70">Param</a></h2>
+			<pre>type Param struct {
+    Num  <a href="/pkg/builtin/#int">int</a>
+    Gen  <a href="#Generator">Generator</a>
+    Prec <a href="/pkg/builtin/#int">int</a>
+}</pre>
+			
+
+			
+
+			
+
+			
+
+			
+				
+				<h3 id="NewParam">func <a href="/target/field.go?s=910:963#L30">NewParam</a></h3>
+				<pre>func NewParam(num <a href="/pkg/builtin/#int">int</a>, gen <a href="#Generator">Generator</a>, prec <a href="/pkg/builtin/#int">int</a>) <a href="#Param">Param</a></pre>
+				<p>
+Create a new param corresponding to a pfield in Csound. The first arg is the
+pfield number (1..). If this param uses a generator daisy chain, the gen arg
+has to be the last generator in the chain. The prec arg is only used when
+evaluating the field to a Csound score.
+</p>
+
+				
+			
+
+			
+				
+				<h3 id="Param.Value">func (Param) <a href="/target/field.go?s=1122:1169#L39">Value</a></h3>
+				<pre>func (p <a href="#Param">Param</a>) Value(t, t0, t1 <a href="/pkg/builtin/#float64">float64</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+				<p>
+Returns the pfield value at time t, between t0 and t1.
+</p>
+
+				
+				
+			
+		
+			
+			
+			<h2 id="RndMode">type <a href="/target/types.go?s=1036:1052#L24">RndMode</a></h2>
+			<pre>type RndMode <a href="/pkg/builtin/#int">int</a></pre>
+			
+
+			
+				<pre>const (
+    <span id="UNI">UNI</span> <a href="#RndMode">RndMode</a> = <a href="/pkg/builtin/#iota">iota</a>
+    <span id="LIN">LIN</span>
+    <span id="RLIN">RLIN</span>
+    <span id="TRI">TRI</span>
+    <span id="EXP">EXP</span>
+    <span id="REXP">REXP</span>
+    <span id="BEXP">BEXP</span>
+    <span id="GAUSS">GAUSS</span>
+    <span id="CAUCHY">CAUCHY</span>
+    <span id="BETA">BETA</span>
+    <span id="WEI">WEI</span>
+)</pre>
+				<p>
+Modes for the rnd generator
+</p>
+
+<script type="text/javascript">
+  var toggleButtons = document.getElementsByClassName("toggleButton");
+  for (var i = 0; i < toggleButtons.length; i++) {
+    toggleButtons[i].addEventListener("click", function() {
+        var elems = this.parentNode.parentNode.children;
+        for (var j = 0; j < elems.length; j++) {
+          if (elems[j].className == "collapsed")
+            elems[j].className = "expanded";
+          else if (elems[j].className == "expanded")
+            elems[j].className = "collapsed";
+        }
+    }, false);
+  }
+</script>
+</body>
+</html>
+
