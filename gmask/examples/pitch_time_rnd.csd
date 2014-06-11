@@ -27,7 +27,7 @@ endin
 
 <CsScore bin="gmask">
 {
-f1 0 131072 1 "schwermt.aif" 0 4 1  
+f1 0 131072 1 "../../samples/schwermt.aif" 0 4 1  
 f4 0 8193 8 0 4096 1 4096 0
 }
 

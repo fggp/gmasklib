@@ -3,6 +3,7 @@ package gmask
 import (
 	"bufio"
 	"fmt"
+	csnd6 "github.com/fggp/go-csnd6"
 	"io"
 	"strconv"
 	"strings"
@@ -56,15 +57,41 @@ func NewInterpolation(val float64, cos, off bool) *Interpolation {
 	return &ipl
 }
 
+// Evaluate a field generating score events sent to Csound via the API
+// scoreEvent or scoreEventAbsolute functions.
+func (f *Field) EvalToScoreEvents(cs csnd6.CSOUND, absolute bool, timeOfs float64) {
+	t := f.Start
+	pFields := make([]csnd6.MYFLT, len(f.Params))
+	for {
+		pFields[0] = csnd6.MYFLT(f.Params[0].Value(t, f.Start, f.End))
+		pFields[1] = csnd6.MYFLT(t)
+		for i := 2; i < len(f.Params); i++ {
+			if f.Params[i].Num == i+1 {
+				pFields[i] = csnd6.MYFLT(f.Params[i].Value(t, f.Start, f.End))
+			} else {
+				break
+			}
+		}
+		if absolute {
+			cs.ScoreEventAbsolute('i', pFields, timeOfs)
+		} else {
+			cs.ScoreEvent('i', pFields)
+		}
+		if t += f.Params[1].Value(t, f.Start, f.End); t > f.End {
+			break
+		}
+	}
+}
+
 func pFmt(format string, prec int) string {
 	return strings.Replace(format, "p", strconv.Itoa(prec), -1)
 }
 
-// Evaluate a field. The result is written into an io.Writer. This procedure is
-// generally invoked from the parser in the gmask program. But one can use it
-// from any go program, if the Field receiver pointer points to a valid Field
-// structure.
-func (f *Field) Eval(dest io.Writer, fieldNum int) {
+// Evaluate a field as a score section. The result is written into an io.Writer.
+// This procedure is generally invoked from the parser in the gmask program.
+// But one can use it from any go program, if the Field receiver pointer points
+// to a valid Field structure.
+func (f *Field) EvalToScore(dest io.Writer, fieldNum int) {
 	var nEvents int
 	w := bufio.NewWriter(dest)
 	fmt.Fprintf(w, "\n; ------- begin of field %d --- beats: %.2f - %.2f --------\n\n",

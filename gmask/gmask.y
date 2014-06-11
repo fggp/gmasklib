@@ -61,7 +61,7 @@ import (
 %% // Grammar rules and actions follow.
 
 input: csco     { fmt.Fprintf(w, "%s\n", $1) }
-| input field	{ fieldNum++; $2.Eval(w, fieldNum) }
+| input field	{ fieldNum++; $2.EvalToScore(w, fieldNum) }
 ;
 
 csco: SCO       { $$ = $1 }

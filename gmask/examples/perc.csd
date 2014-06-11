@@ -86,7 +86,7 @@ f 0 20
 
 p1 const 2
 
-p2 rnd lin -1
+p2 rnd rlin -1
 mask .3 1 map 1
 quant .3 .96
 prec 2

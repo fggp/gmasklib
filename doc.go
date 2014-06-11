@@ -13,7 +13,7 @@ gmask under LGPL:
 
 "Dear François,
 
-thanks for bringing Cmask to a new live!
+thanks for bringing Cmask to a new life!
 Yes, you may publish Gmask under LGPL.
 
 best

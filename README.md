@@ -26,7 +26,7 @@ The original Cmask software was written by Andre Bartetzki. Andre has stopped Cm
 Cmask was published under GPL. Thanks to Andre who kindly allowed me to publish gmask under LGPL:
 "Dear François,
 
-thanks for bringing Cmask to a new live!
+thanks for bringing Cmask to a new life!
 Yes, you may publish Gmask under LGPL.
 
 best

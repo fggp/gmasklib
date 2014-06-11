@@ -1,10 +1,9 @@
-
 //line gmask.y:4
-
 package main
+
 import __yyfmt__ "fmt"
+
 //line gmask.y:5
-		
 import (
 	"bufio"
 	"fmt"
@@ -15,23 +14,22 @@ import (
 	"os"
 )
 
-
 //line gmask.y:19
 type yySymType struct {
 	yys int
-  val float64
-  n   int
-  sco string
-  fie *gmask.Field
-  par gmask.Param
-  gen gmask.Generator
-  itm gmask.ItemMode
-  lst *List
-  ipl *gmask.Interpolation
-  rmd gmask.RndMode
-  omd gmask.OscMode
-  amd gmask.AccumMode
-  sli []interface{}
+	val float64
+	n   int
+	sco string
+	fie *gmask.Field
+	par gmask.Param
+	gen gmask.Generator
+	itm gmask.ItemMode
+	lst *List
+	ipl *gmask.Interpolation
+	rmd gmask.RndMode
+	omd gmask.OscMode
+	amd gmask.AccumMode
+	sli []interface{}
 }
 
 const SCO = 57346
@@ -134,8 +132,6 @@ const yyErrCode = 2
 const yyMaxDepth = 200
 
 //line gmask.y:193
-
-	
 const SLICEINC = 10
 
 type List struct {
@@ -568,278 +564,459 @@ yydefault:
 
 	case 1:
 		//line gmask.y:63
-		{ fmt.Fprintf(w, "%s\n", yyS[yypt-0].sco) }
+		{
+			fmt.Fprintf(w, "%s\n", yyS[yypt-0].sco)
+		}
 	case 2:
 		//line gmask.y:64
-		{ fieldNum++; yyS[yypt-0].fie.Eval(w, fieldNum) }
+		{
+			fieldNum++
+			yyS[yypt-0].fie.EvalToScore(w, fieldNum)
+		}
 	case 3:
 		//line gmask.y:67
-		{ yyVAL.sco = yyS[yypt-0].sco }
+		{
+			yyVAL.sco = yyS[yypt-0].sco
+		}
 	case 4:
 		//line gmask.y:70
-		{ yyVAL.fie = gmask.NewField(yyS[yypt-1].val, yyS[yypt-0].val) }
+		{
+			yyVAL.fie = gmask.NewField(yyS[yypt-1].val, yyS[yypt-0].val)
+		}
 	case 5:
 		//line gmask.y:71
-		{ yyS[yypt-1].fie.AddParam(yyS[yypt-0].par) }
+		{
+			yyS[yypt-1].fie.AddParam(yyS[yypt-0].par)
+		}
 	case 6:
 		//line gmask.y:74
-		{ yyVAL.par = gmask.NewParam(yyS[yypt-2].n, yyS[yypt-1].gen, yyS[yypt-0].n) }
+		{
+			yyVAL.par = gmask.NewParam(yyS[yypt-2].n, yyS[yypt-1].gen, yyS[yypt-0].n)
+		}
 	case 7:
 		//line gmask.y:77
-		{ yyVAL.gen = gmask.ConstGen(yyS[yypt-0].val) }
+		{
+			yyVAL.gen = gmask.ConstGen(yyS[yypt-0].val)
+		}
 	case 8:
 		//line gmask.y:78
-		{ yyVAL.gen = gmask.ItemGen(yyS[yypt-3].itm, yyS[yypt-1].lst.GetVal()) }
+		{
+			yyVAL.gen = gmask.ItemGen(yyS[yypt-3].itm, yyS[yypt-1].lst.GetVal())
+		}
 	case 9:
 		//line gmask.y:79
-		{ yyVAL.gen = yyS[yypt-0].gen }
+		{
+			yyVAL.gen = yyS[yypt-0].gen
+		}
 	case 10:
 		//line gmask.y:80
-		{ yyVAL.gen = gmask.RangeGen(yyS[yypt-1].val, yyS[yypt-0].val) }
+		{
+			yyVAL.gen = gmask.RangeGen(yyS[yypt-1].val, yyS[yypt-0].val)
+		}
 	case 11:
 		yyVAL.gen = yyS[yypt-0].gen
 	case 12:
 		yyVAL.gen = yyS[yypt-0].gen
 	case 13:
 		//line gmask.y:83
-		{ yyVAL.gen = gmask.MaskGen(yyS[yypt-1].gen, yyS[yypt-0].sli...) }
+		{
+			yyVAL.gen = gmask.MaskGen(yyS[yypt-1].gen, yyS[yypt-0].sli...)
+		}
 	case 14:
 		//line gmask.y:84
-		{ yyVAL.gen = gmask.QuantGen(yyS[yypt-1].gen, yyS[yypt-0].sli...) }
+		{
+			yyVAL.gen = gmask.QuantGen(yyS[yypt-1].gen, yyS[yypt-0].sli...)
+		}
 	case 15:
 		//line gmask.y:85
-		{ yyVAL.gen = gmask.AccumGen(yyS[yypt-2].gen, gmask.ON) }
+		{
+			yyVAL.gen = gmask.AccumGen(yyS[yypt-2].gen, gmask.ON)
+		}
 	case 16:
 		//line gmask.y:86
-		{ yyVAL.gen = gmask.AccumGen(yyS[yypt-4].gen, gmask.ON, yyS[yypt-0].val) }
+		{
+			yyVAL.gen = gmask.AccumGen(yyS[yypt-4].gen, gmask.ON, yyS[yypt-0].val)
+		}
 	case 17:
 		//line gmask.y:87
-		{ yyVAL.gen = gmask.AccumGen(yyS[yypt-1].gen, yyS[yypt-0].sli...) }
+		{
+			yyVAL.gen = gmask.AccumGen(yyS[yypt-1].gen, yyS[yypt-0].sli...)
+		}
 	case 18:
 		//line gmask.y:90
-		{ yyVAL.itm = gmask.CYCLE }
+		{
+			yyVAL.itm = gmask.CYCLE
+		}
 	case 19:
 		//line gmask.y:91
-		{ yyVAL.itm = gmask.SWING }
+		{
+			yyVAL.itm = gmask.SWING
+		}
 	case 20:
 		//line gmask.y:92
-		{ yyVAL.itm = gmask.HEAP }
+		{
+			yyVAL.itm = gmask.HEAP
+		}
 	case 21:
 		//line gmask.y:93
-		{ yyVAL.itm = gmask.RANDOM }
+		{
+			yyVAL.itm = gmask.RANDOM
+		}
 	case 22:
 		//line gmask.y:96
-		{ yyVAL.lst = NewList(yyS[yypt-0].val) }
+		{
+			yyVAL.lst = NewList(yyS[yypt-0].val)
+		}
 	case 23:
 		//line gmask.y:97
-		{ yyS[yypt-1].lst.AddVal(yyS[yypt-0].val) }
+		{
+			yyS[yypt-1].lst.AddVal(yyS[yypt-0].val)
+		}
 	case 24:
 		//line gmask.y:100
-		{ yyVAL.gen = gmask.BpfGen(yyS[yypt-2].lst.GetVal(), yyS[yypt-1].ipl) }
+		{
+			yyVAL.gen = gmask.BpfGen(yyS[yypt-2].lst.GetVal(), yyS[yypt-1].ipl)
+		}
 	case 25:
 		//line gmask.y:101
-		{ yyVAL.gen = gmask.BpfGen([]float64{yyS[yypt-3].val, yyS[yypt-2].val}, yyS[yypt-1].ipl) }
+		{
+			yyVAL.gen = gmask.BpfGen([]float64{yyS[yypt-3].val, yyS[yypt-2].val}, yyS[yypt-1].ipl)
+		}
 	case 26:
 		//line gmask.y:104
-		{ yyVAL.lst = NewBpList(yyS[yypt-1].val, yyS[yypt-0].val) }
+		{
+			yyVAL.lst = NewBpList(yyS[yypt-1].val, yyS[yypt-0].val)
+		}
 	case 27:
 		//line gmask.y:105
-		{ yyS[yypt-2].lst.AddBp(yyS[yypt-1].val, yyS[yypt-0].val) }
+		{
+			yyS[yypt-2].lst.AddBp(yyS[yypt-1].val, yyS[yypt-0].val)
+		}
 	case 28:
 		//line gmask.y:108
-		{ yyVAL.ipl = gmask.NewInterpolation(0, false, false) }
+		{
+			yyVAL.ipl = gmask.NewInterpolation(0, false, false)
+		}
 	case 29:
 		//line gmask.y:109
-		{ yyVAL.ipl = gmask.NewInterpolation(yyS[yypt-0].val, false, false) }
+		{
+			yyVAL.ipl = gmask.NewInterpolation(yyS[yypt-0].val, false, false)
+		}
 	case 30:
 		//line gmask.y:110
-		{ yyVAL.ipl = gmask.NewInterpolation(0, true, false) }
+		{
+			yyVAL.ipl = gmask.NewInterpolation(0, true, false)
+		}
 	case 31:
 		//line gmask.y:111
-		{ yyVAL.ipl = gmask.NewInterpolation(0, false, true) }
+		{
+			yyVAL.ipl = gmask.NewInterpolation(0, false, true)
+		}
 	case 32:
 		//line gmask.y:114
-		{ yyVAL.rmd = gmask.UNI }
+		{
+			yyVAL.rmd = gmask.UNI
+		}
 	case 33:
 		//line gmask.y:115
-		{ yyVAL.rmd = gmask.LIN }
+		{
+			yyVAL.rmd = gmask.LIN
+		}
 	case 34:
 		//line gmask.y:116
-		{ yyVAL.rmd = gmask.RLIN }
+		{
+			yyVAL.rmd = gmask.RLIN
+		}
 	case 35:
 		//line gmask.y:117
-		{ yyVAL.rmd = gmask.TRI }
+		{
+			yyVAL.rmd = gmask.TRI
+		}
 	case 36:
 		//line gmask.y:118
-		{ yyVAL.rmd = gmask.EXP }
+		{
+			yyVAL.rmd = gmask.EXP
+		}
 	case 37:
 		//line gmask.y:119
-		{ yyVAL.rmd = gmask.REXP }
+		{
+			yyVAL.rmd = gmask.REXP
+		}
 	case 38:
 		//line gmask.y:120
-		{ yyVAL.rmd = gmask.BEXP }
+		{
+			yyVAL.rmd = gmask.BEXP
+		}
 	case 39:
 		//line gmask.y:121
-		{ yyVAL.rmd = gmask.GAUSS }
+		{
+			yyVAL.rmd = gmask.GAUSS
+		}
 	case 40:
 		//line gmask.y:122
-		{ yyVAL.rmd = gmask.CAUCHY }
+		{
+			yyVAL.rmd = gmask.CAUCHY
+		}
 	case 41:
 		//line gmask.y:123
-		{ yyVAL.rmd = gmask.BETA }
+		{
+			yyVAL.rmd = gmask.BETA
+		}
 	case 42:
 		//line gmask.y:124
-		{ yyVAL.rmd = gmask.WEI }
+		{
+			yyVAL.rmd = gmask.WEI
+		}
 	case 43:
 		//line gmask.y:127
-		{ yyVAL.gen = gmask.RndGen(yyS[yypt-0].rmd) }
+		{
+			yyVAL.gen = gmask.RndGen(yyS[yypt-0].rmd)
+		}
 	case 44:
 		//line gmask.y:128
-		{ yyVAL.gen = gmask.RndGen(yyS[yypt-1].rmd, yyS[yypt-0].val) }
+		{
+			yyVAL.gen = gmask.RndGen(yyS[yypt-1].rmd, yyS[yypt-0].val)
+		}
 	case 45:
 		//line gmask.y:129
-		{ yyVAL.gen = gmask.RndGen(yyS[yypt-1].rmd, yyS[yypt-0].gen) }
+		{
+			yyVAL.gen = gmask.RndGen(yyS[yypt-1].rmd, yyS[yypt-0].gen)
+		}
 	case 46:
 		//line gmask.y:130
-		{ yyVAL.gen = gmask.RndGen(yyS[yypt-2].rmd, yyS[yypt-1].val, yyS[yypt-0].val) }
+		{
+			yyVAL.gen = gmask.RndGen(yyS[yypt-2].rmd, yyS[yypt-1].val, yyS[yypt-0].val)
+		}
 	case 47:
 		//line gmask.y:131
-		{ yyVAL.gen = gmask.RndGen(yyS[yypt-2].rmd, yyS[yypt-1].gen, yyS[yypt-0].val) }
+		{
+			yyVAL.gen = gmask.RndGen(yyS[yypt-2].rmd, yyS[yypt-1].gen, yyS[yypt-0].val)
+		}
 	case 48:
 		//line gmask.y:132
-		{ yyVAL.gen = gmask.RndGen(yyS[yypt-2].rmd, yyS[yypt-1].val, yyS[yypt-0].gen) }
+		{
+			yyVAL.gen = gmask.RndGen(yyS[yypt-2].rmd, yyS[yypt-1].val, yyS[yypt-0].gen)
+		}
 	case 49:
 		//line gmask.y:133
-		{ yyVAL.gen = gmask.RndGen(yyS[yypt-2].rmd, yyS[yypt-1].gen, yyS[yypt-0].gen) }
+		{
+			yyVAL.gen = gmask.RndGen(yyS[yypt-2].rmd, yyS[yypt-1].gen, yyS[yypt-0].gen)
+		}
 	case 50:
 		//line gmask.y:136
-		{ yyVAL.omd = gmask.SIN }
+		{
+			yyVAL.omd = gmask.SIN
+		}
 	case 51:
 		//line gmask.y:137
-		{ yyVAL.omd = gmask.COS }
+		{
+			yyVAL.omd = gmask.COS
+		}
 	case 52:
 		//line gmask.y:138
-		{ yyVAL.omd = gmask.SQUARE }
+		{
+			yyVAL.omd = gmask.SQUARE
+		}
 	case 53:
 		//line gmask.y:139
-		{ yyVAL.omd = gmask.TRIANGLE }
+		{
+			yyVAL.omd = gmask.TRIANGLE
+		}
 	case 54:
 		//line gmask.y:140
-		{ yyVAL.omd = gmask.SAWUP }
+		{
+			yyVAL.omd = gmask.SAWUP
+		}
 	case 55:
 		//line gmask.y:141
-		{ yyVAL.omd = gmask.SAWDOWN }
+		{
+			yyVAL.omd = gmask.SAWDOWN
+		}
 	case 56:
 		//line gmask.y:142
-		{ yyVAL.omd = gmask.POWUP }
+		{
+			yyVAL.omd = gmask.POWUP
+		}
 	case 57:
 		//line gmask.y:143
-		{ yyVAL.omd = gmask.POWDOWN }
+		{
+			yyVAL.omd = gmask.POWDOWN
+		}
 	case 58:
 		//line gmask.y:146
-		{ yyVAL.gen = gmask.OscGen(yyS[yypt-1].omd, yyS[yypt-0].val) }
+		{
+			yyVAL.gen = gmask.OscGen(yyS[yypt-1].omd, yyS[yypt-0].val)
+		}
 	case 59:
 		//line gmask.y:147
-		{ yyVAL.gen = gmask.OscGen(yyS[yypt-1].omd, yyS[yypt-0].gen) }
+		{
+			yyVAL.gen = gmask.OscGen(yyS[yypt-1].omd, yyS[yypt-0].gen)
+		}
 	case 60:
 		//line gmask.y:148
-		{ yyVAL.gen = gmask.OscGen(yyS[yypt-2].omd, yyS[yypt-1].val, yyS[yypt-0].val) }
+		{
+			yyVAL.gen = gmask.OscGen(yyS[yypt-2].omd, yyS[yypt-1].val, yyS[yypt-0].val)
+		}
 	case 61:
 		//line gmask.y:149
-		{ yyVAL.gen = gmask.OscGen(yyS[yypt-2].omd, yyS[yypt-1].gen, yyS[yypt-0].val) }
+		{
+			yyVAL.gen = gmask.OscGen(yyS[yypt-2].omd, yyS[yypt-1].gen, yyS[yypt-0].val)
+		}
 	case 62:
 		//line gmask.y:150
-		{ yyVAL.gen = gmask.OscGen(yyS[yypt-3].omd, yyS[yypt-2].val, yyS[yypt-1].val, yyS[yypt-0].val) }
+		{
+			yyVAL.gen = gmask.OscGen(yyS[yypt-3].omd, yyS[yypt-2].val, yyS[yypt-1].val, yyS[yypt-0].val)
+		}
 	case 63:
 		//line gmask.y:151
-		{ yyVAL.gen = gmask.OscGen(yyS[yypt-3].omd, yyS[yypt-2].gen, yyS[yypt-1].val, yyS[yypt-0].val) }
+		{
+			yyVAL.gen = gmask.OscGen(yyS[yypt-3].omd, yyS[yypt-2].gen, yyS[yypt-1].val, yyS[yypt-0].val)
+		}
 	case 64:
 		//line gmask.y:154
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].val, yyS[yypt-0].val) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].val, yyS[yypt-0].val)
+		}
 	case 65:
 		//line gmask.y:155
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].gen, yyS[yypt-0].val) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].gen, yyS[yypt-0].val)
+		}
 	case 66:
 		//line gmask.y:156
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].val, yyS[yypt-0].gen) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].val, yyS[yypt-0].gen)
+		}
 	case 67:
 		//line gmask.y:157
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].gen, yyS[yypt-0].gen) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].gen, yyS[yypt-0].gen)
+		}
 	case 68:
 		//line gmask.y:158
-		{ yyVAL.sli = append(yyS[yypt-2].sli, yyS[yypt-0].val) }
+		{
+			yyVAL.sli = append(yyS[yypt-2].sli, yyS[yypt-0].val)
+		}
 	case 69:
 		//line gmask.y:161
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-0].val) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-0].val)
+		}
 	case 70:
 		//line gmask.y:162
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-0].gen) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-0].gen)
+		}
 	case 71:
 		//line gmask.y:163
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].val, yyS[yypt-0].val) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].val, yyS[yypt-0].val)
+		}
 	case 72:
 		//line gmask.y:164
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].val, yyS[yypt-0].gen) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].val, yyS[yypt-0].gen)
+		}
 	case 73:
 		//line gmask.y:165
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].gen, yyS[yypt-0].val) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].gen, yyS[yypt-0].val)
+		}
 	case 74:
 		//line gmask.y:166
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].gen, yyS[yypt-0].gen) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-1].gen, yyS[yypt-0].gen)
+		}
 	case 75:
 		//line gmask.y:167
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].val, yyS[yypt-1].val, yyS[yypt-0].val) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].val, yyS[yypt-1].val, yyS[yypt-0].val)
+		}
 	case 76:
 		//line gmask.y:168
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].val, yyS[yypt-1].val, yyS[yypt-0].gen) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].val, yyS[yypt-1].val, yyS[yypt-0].gen)
+		}
 	case 77:
 		//line gmask.y:169
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].val, yyS[yypt-1].gen, yyS[yypt-0].val) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].val, yyS[yypt-1].gen, yyS[yypt-0].val)
+		}
 	case 78:
 		//line gmask.y:170
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].val, yyS[yypt-1].gen, yyS[yypt-0].gen) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].val, yyS[yypt-1].gen, yyS[yypt-0].gen)
+		}
 	case 79:
 		//line gmask.y:171
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].gen, yyS[yypt-1].val, yyS[yypt-0].val) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].gen, yyS[yypt-1].val, yyS[yypt-0].val)
+		}
 	case 80:
 		//line gmask.y:172
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].gen, yyS[yypt-1].val, yyS[yypt-0].gen) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].gen, yyS[yypt-1].val, yyS[yypt-0].gen)
+		}
 	case 81:
 		//line gmask.y:173
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].gen, yyS[yypt-1].gen, yyS[yypt-0].val) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].gen, yyS[yypt-1].gen, yyS[yypt-0].val)
+		}
 	case 82:
 		//line gmask.y:174
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].gen, yyS[yypt-1].gen, yyS[yypt-0].gen) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].gen, yyS[yypt-1].gen, yyS[yypt-0].gen)
+		}
 	case 83:
 		//line gmask.y:177
-		{ yyVAL.amd = gmask.LIMIT }
+		{
+			yyVAL.amd = gmask.LIMIT
+		}
 	case 84:
 		//line gmask.y:178
-		{ yyVAL.amd = gmask.MIRROR }
+		{
+			yyVAL.amd = gmask.MIRROR
+		}
 	case 85:
 		//line gmask.y:179
-		{ yyVAL.amd = gmask.WRAP }
+		{
+			yyVAL.amd = gmask.WRAP
+		}
 	case 86:
 		//line gmask.y:182
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].amd, yyS[yypt-1].val, yyS[yypt-0].val) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].amd, yyS[yypt-1].val, yyS[yypt-0].val)
+		}
 	case 87:
 		//line gmask.y:183
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].amd, yyS[yypt-1].gen, yyS[yypt-0].val) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].amd, yyS[yypt-1].gen, yyS[yypt-0].val)
+		}
 	case 88:
 		//line gmask.y:184
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].amd, yyS[yypt-1].val, yyS[yypt-0].gen) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].amd, yyS[yypt-1].val, yyS[yypt-0].gen)
+		}
 	case 89:
 		//line gmask.y:185
-		{ yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].amd, yyS[yypt-1].gen, yyS[yypt-0].gen) }
+		{
+			yyVAL.sli = NewInterfaceSlice(yyS[yypt-2].amd, yyS[yypt-1].gen, yyS[yypt-0].gen)
+		}
 	case 90:
 		//line gmask.y:186
-		{ yyVAL.sli = append(yyS[yypt-2].sli, yyS[yypt-0].val) }
+		{
+			yyVAL.sli = append(yyS[yypt-2].sli, yyS[yypt-0].val)
+		}
 	case 91:
 		//line gmask.y:189
-		{ yyVAL.n = -1 }
+		{
+			yyVAL.n = -1
+		}
 	case 92:
 		//line gmask.y:190
-		{ yyVAL.n = int(yyS[yypt-0].val) }
+		{
+			yyVAL.n = int(yyS[yypt-0].val)
+		}
 	}
 	goto yystack /* stack new state and value */
 }
