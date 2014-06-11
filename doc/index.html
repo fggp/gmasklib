@@ -1,11 +1,12 @@
-<html>
-<head>
-<title>gmask</title>
-<link type="text/css" rel="stylesheet" href="style.css">
-<meta charset='utf-8'>
-</head>
-<body>
-<!--
+
+	<html>
+	<head>
+	<title>csnd6 - Go binding to the Csound6 API</title>
+	<link type="text/css" rel="stylesheet" href="style.css">
+	<meta charset='utf-8'>
+  </head>
+	<body>
+	<!--
 	Copyright 2009 The Go Authors. All rights reserved.
 	Use of this source code is governed by a BSD-style
 	license that can be found in the LICENSE file.
@@ -53,7 +54,7 @@ gmask under LGPL:
 &#34;Dear François,
 </p>
 <p>
-thanks for bringing Cmask to a new live!
+thanks for bringing Cmask to a new life!
 Yes, you may publish Gmask under LGPL.
 </p>
 <p>
@@ -121,7 +122,10 @@ as well.
 					<dd>&nbsp; &nbsp; <a href="#Field.AddParam">func (f *Field) AddParam(p Param)</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="#Field.Eval">func (f *Field) Eval(dest io.Writer, fieldNum int)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#Field.EvalToScore">func (f *Field) EvalToScore(dest io.Writer, fieldNum int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Field.EvalToScoreEvents">func (f *Field) EvalToScoreEvents(cs csnd6.CSOUND, absolute bool, timeOfs float64)</a></dd>
 				
 			
 				
@@ -247,12 +251,12 @@ as well.
 			
 			
 			<h2 id="AccumMode">type <a href="/target/types.go?s=1310:1328#L55">AccumMode</a></h2>
-			<pre>type AccumMode <a href="/pkg/builtin/#int">int</a></pre>
+			<pre>type AccumMode <a href="http://golang.org/pkg/builtin/#int">int</a></pre>
 			
 
 			
 				<pre>const (
-    <span id="ON">ON</span> <a href="#AccumMode">AccumMode</a> = <a href="/pkg/builtin/#iota">iota</a>
+    <span id="ON">ON</span> <a href="#AccumMode">AccumMode</a> = <a href="http://golang.org/pkg/builtin/#iota">iota</a>
     <span id="LIMIT">LIMIT</span>
     <span id="MIRROR">MIRROR</span>
     <span id="WRAP">WRAP</span>
@@ -275,7 +279,7 @@ Modes for the accumulator
 			
 			<h2 id="Field">type <a href="/target/types.go?s=1412:1473#L65">Field</a></h2>
 			<pre>type Field struct {
-    Start, End <a href="/pkg/builtin/#float64">float64</a>
+    Start, End <a href="http://golang.org/pkg/builtin/#float64">float64</a>
     Params     []<a href="#Param">Param</a>
 }</pre>
 			
@@ -288,8 +292,8 @@ Modes for the accumulator
 
 			
 				
-				<h3 id="NewField">func <a href="/target/field.go?s=114:154#L4">NewField</a></h3>
-				<pre>func NewField(start, end <a href="/pkg/builtin/#float64">float64</a>) *<a href="#Field">Field</a></pre>
+				<h3 id="NewField">func <a href="/target/field.go?s=148:188#L5">NewField</a></h3>
+				<pre>func NewField(start, end <a href="http://golang.org/pkg/builtin/#float64">float64</a>) *<a href="#Field">Field</a></pre>
 				<p>
 Create a new Field
 </p>
@@ -299,7 +303,7 @@ Create a new Field
 
 			
 				
-				<h3 id="Field.AddParam">func (*Field) <a href="/target/field.go?s=401:434#L13">AddParam</a></h3>
+				<h3 id="Field.AddParam">func (*Field) <a href="/target/field.go?s=435:468#L14">AddParam</a></h3>
 				<pre>func (f *<a href="#Field">Field</a>) AddParam(p <a href="#Param">Param</a>)</pre>
 				<p>
 Add a param to the field. This param corresponds to a pfield in Csound. If
@@ -311,13 +315,24 @@ overwritten.
 				
 			
 				
-				<h3 id="Field.Eval">func (*Field) <a href="/target/field.go?s=1715:1765#L57">Eval</a></h3>
-				<pre>func (f *<a href="#Field">Field</a>) Eval(dest <a href="/pkg/io/">io</a>.<a href="/pkg/io/#Writer">Writer</a>, fieldNum <a href="/pkg/builtin/#int">int</a>)</pre>
+				<h3 id="Field.EvalToScore">func (*Field) <a href="/target/field.go?s=2491:2548#L84">EvalToScore</a></h3>
+				<pre>func (f *<a href="#Field">Field</a>) EvalToScore(dest <a href="http://golang.org/pkg/io/">io</a>.<a href="http://golang.org/pkg/io/#Writer">Writer</a>, fieldNum <a href="http://golang.org/pkg/builtin/#int">int</a>)</pre>
 				<p>
-Evaluate a field. The result is written into an io.Writer. This procedure is
-generally invoked from the parser in the gmask program. But one can use it
-from any go program, if the Field receiver pointer points to a valid Field
-structure.
+Evaluate a field as a score section. The result is written into an io.Writer.
+This procedure is generally invoked from the parser in the gmask program.
+But one can use it from any go program, if the Field receiver pointer points
+to a valid Field structure.
+</p>
+
+				
+				
+			
+				
+				<h3 id="Field.EvalToScoreEvents">func (*Field) <a href="/target/field.go?s=1509:1591#L52">EvalToScoreEvents</a></h3>
+				<pre>func (f *<a href="#Field">Field</a>) EvalToScoreEvents(cs <a href="http://golang.org/pkg/github.com/fggp/go-csnd6/">csnd6</a>.<a href="http://golang.org/pkg/github.com/fggp/go-csnd6/#CSOUND">CSOUND</a>, absolute <a href="http://golang.org/pkg/builtin/#bool">bool</a>, timeOfs <a href="http://golang.org/pkg/builtin/#float64">float64</a>)</pre>
+				<p>
+Evaluate a field generating score events sent to Csound via the API
+scoreEvent or scoreEventAbsolute functions.
 </p>
 
 				
@@ -327,7 +342,7 @@ structure.
 			
 			
 			<h2 id="Generator">type <a href="/target/types.go?s=823:864#L6">Generator</a></h2>
-			<pre>type Generator func(t ...<a href="/pkg/builtin/#float64">float64</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+			<pre>type Generator func(t ...<a href="http://golang.org/pkg/builtin/#float64">float64</a>) <a href="http://golang.org/pkg/builtin/#float64">float64</a></pre>
 			<p>
 Type of the function returned by the different generator factories. A
 generator can be called with one or three float64 parameters. If the
@@ -365,7 +380,7 @@ an optional argument can fix the initial value of the accumulator.
 			
 				
 				<h3 id="BpfGen">func <a href="/target/seg.go?s=529:591#L6">BpfGen</a></h3>
-				<pre>func BpfGen(points []<a href="/pkg/builtin/#float64">float64</a>, interp *<a href="#Interpolation">Interpolation</a>) <a href="#Generator">Generator</a></pre>
+				<pre>func BpfGen(points []<a href="http://golang.org/pkg/builtin/#float64">float64</a>, interp *<a href="#Interpolation">Interpolation</a>) <a href="#Generator">Generator</a></pre>
 				<p>
 Segment function factory. Returns a generator.
 </p>
@@ -386,7 +401,7 @@ time is needed.
 			
 				
 				<h3 id="ConstGen">func <a href="/target/const.go?s=117:151#L1">ConstGen</a></h3>
-				<pre>func ConstGen(v <a href="/pkg/builtin/#float64">float64</a>) <a href="#Generator">Generator</a></pre>
+				<pre>func ConstGen(v <a href="http://golang.org/pkg/builtin/#float64">float64</a>) <a href="#Generator">Generator</a></pre>
 				<p>
 Constant generator factory. The argument is the constant value to be returned
 by the generator.
@@ -396,7 +411,7 @@ by the generator.
 			
 				
 				<h3 id="ItemGen">func <a href="/target/item.go?s=190:243#L1">ItemGen</a></h3>
-				<pre>func ItemGen(mode <a href="#ItemMode">ItemMode</a>, list []<a href="/pkg/builtin/#float64">float64</a>) <a href="#Generator">Generator</a></pre>
+				<pre>func ItemGen(mode <a href="#ItemMode">ItemMode</a>, list []<a href="http://golang.org/pkg/builtin/#float64">float64</a>) <a href="#Generator">Generator</a></pre>
 				<p>
 Item generator factory. The first arg is the item mode. The second
 arg is the list of values from which the generator will pick its return
@@ -446,7 +461,7 @@ can be each a single value or a generator.
 			
 				
 				<h3 id="RangeGen">func <a href="/target/rnd.go?s=84:125#L1">RangeGen</a></h3>
-				<pre>func RangeGen(min, max <a href="/pkg/builtin/#float64">float64</a>) <a href="#Generator">Generator</a></pre>
+				<pre>func RangeGen(min, max <a href="http://golang.org/pkg/builtin/#float64">float64</a>) <a href="#Generator">Generator</a></pre>
 				<p>
 Random number generator factory.
 </p>
@@ -496,8 +511,8 @@ params are s (0..1) and t (&gt;0), and they default to 0.5 and 2.
 
 			
 				
-				<h3 id="NewInterpolation">func <a href="/target/field.go?s=1237:1301#L44">NewInterpolation</a></h3>
-				<pre>func NewInterpolation(val <a href="/pkg/builtin/#float64">float64</a>, cos, off <a href="/pkg/builtin/#bool">bool</a>) *<a href="#Interpolation">Interpolation</a></pre>
+				<h3 id="NewInterpolation">func <a href="/target/field.go?s=1271:1335#L45">NewInterpolation</a></h3>
+				<pre>func NewInterpolation(val <a href="http://golang.org/pkg/builtin/#float64">float64</a>, cos, off <a href="http://golang.org/pkg/builtin/#bool">bool</a>) *<a href="#Interpolation">Interpolation</a></pre>
 				<p>
 Create a new interpolation value.
 </p>
@@ -510,7 +525,7 @@ Create a new interpolation value.
 			
 			
 			<h2 id="Interpolator">type <a href="/target/types.go?s=15:72#L1">Interpolator</a></h2>
-			<pre>type Interpolator func(t, t0, v0, t1, v1 <a href="/pkg/builtin/#float64">float64</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+			<pre>type Interpolator func(t, t0, v0, t1, v1 <a href="http://golang.org/pkg/builtin/#float64">float64</a>) <a href="http://golang.org/pkg/builtin/#float64">float64</a></pre>
 			
 
 			
@@ -526,12 +541,12 @@ Create a new interpolation value.
 			
 			
 			<h2 id="ItemMode">type <a href="/target/types.go?s=866:883#L8">ItemMode</a></h2>
-			<pre>type ItemMode <a href="/pkg/builtin/#int">int</a></pre>
+			<pre>type ItemMode <a href="http://golang.org/pkg/builtin/#int">int</a></pre>
 			
 
 			
 				<pre>const (
-    <span id="CYCLE">CYCLE</span> <a href="#ItemMode">ItemMode</a> = <a href="/pkg/builtin/#iota">iota</a>
+    <span id="CYCLE">CYCLE</span> <a href="#ItemMode">ItemMode</a> = <a href="http://golang.org/pkg/builtin/#iota">iota</a>
     <span id="SWING">SWING</span>
     <span id="HEAP">HEAP</span>
     <span id="RANDOM">RANDOM</span>
@@ -553,12 +568,12 @@ Modes for the item generator
 			
 			
 			<h2 id="OscMode">type <a href="/target/types.go?s=1175:1191#L41">OscMode</a></h2>
-			<pre>type OscMode <a href="/pkg/builtin/#int">int</a></pre>
+			<pre>type OscMode <a href="http://golang.org/pkg/builtin/#int">int</a></pre>
 			
 
 			
 				<pre>const (
-    <span id="SIN">SIN</span> <a href="#OscMode">OscMode</a> = <a href="/pkg/builtin/#iota">iota</a>
+    <span id="SIN">SIN</span> <a href="#OscMode">OscMode</a> = <a href="http://golang.org/pkg/builtin/#iota">iota</a>
     <span id="COS">COS</span>
     <span id="SQUARE">SQUARE</span>
     <span id="TRIANGLE">TRIANGLE</span>
@@ -585,9 +600,9 @@ Modes for the osc generator
 			
 			<h2 id="Param">type <a href="/target/types.go?s=1475:1532#L70">Param</a></h2>
 			<pre>type Param struct {
-    Num  <a href="/pkg/builtin/#int">int</a>
+    Num  <a href="http://golang.org/pkg/builtin/#int">int</a>
     Gen  <a href="#Generator">Generator</a>
-    Prec <a href="/pkg/builtin/#int">int</a>
+    Prec <a href="http://golang.org/pkg/builtin/#int">int</a>
 }</pre>
 			
 
@@ -599,8 +614,8 @@ Modes for the osc generator
 
 			
 				
-				<h3 id="NewParam">func <a href="/target/field.go?s=910:963#L30">NewParam</a></h3>
-				<pre>func NewParam(num <a href="/pkg/builtin/#int">int</a>, gen <a href="#Generator">Generator</a>, prec <a href="/pkg/builtin/#int">int</a>) <a href="#Param">Param</a></pre>
+				<h3 id="NewParam">func <a href="/target/field.go?s=944:997#L31">NewParam</a></h3>
+				<pre>func NewParam(num <a href="http://golang.org/pkg/builtin/#int">int</a>, gen <a href="#Generator">Generator</a>, prec <a href="http://golang.org/pkg/builtin/#int">int</a>) <a href="#Param">Param</a></pre>
 				<p>
 Create a new param corresponding to a pfield in Csound. The first arg is the
 pfield number (1..). If this param uses a generator daisy chain, the gen arg
@@ -613,8 +628,8 @@ evaluating the field to a Csound score.
 
 			
 				
-				<h3 id="Param.Value">func (Param) <a href="/target/field.go?s=1122:1169#L39">Value</a></h3>
-				<pre>func (p <a href="#Param">Param</a>) Value(t, t0, t1 <a href="/pkg/builtin/#float64">float64</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+				<h3 id="Param.Value">func (Param) <a href="/target/field.go?s=1156:1203#L40">Value</a></h3>
+				<pre>func (p <a href="#Param">Param</a>) Value(t, t0, t1 <a href="http://golang.org/pkg/builtin/#float64">float64</a>) <a href="http://golang.org/pkg/builtin/#float64">float64</a></pre>
 				<p>
 Returns the pfield value at time t, between t0 and t1.
 </p>
@@ -626,12 +641,12 @@ Returns the pfield value at time t, between t0 and t1.
 			
 			
 			<h2 id="RndMode">type <a href="/target/types.go?s=1036:1052#L24">RndMode</a></h2>
-			<pre>type RndMode <a href="/pkg/builtin/#int">int</a></pre>
+			<pre>type RndMode <a href="http://golang.org/pkg/builtin/#int">int</a></pre>
 			
 
 			
 				<pre>const (
-    <span id="UNI">UNI</span> <a href="#RndMode">RndMode</a> = <a href="/pkg/builtin/#iota">iota</a>
+    <span id="UNI">UNI</span> <a href="#RndMode">RndMode</a> = <a href="http://golang.org/pkg/builtin/#iota">iota</a>
     <span id="LIN">LIN</span>
     <span id="RLIN">RLIN</span>
     <span id="TRI">TRI</span>
@@ -661,6 +676,6 @@ Modes for the rnd generator
     }, false);
   }
 </script>
-</body>
-</html>
-
+	</body>
+	</html>
+	

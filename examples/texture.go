@@ -29,25 +29,25 @@ func events1(cs csnd6.CSOUND) {
 	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
 	f.AddParam(p)
 
-	p.Num, p.Gen = 2, gmask.ConstGen(0.003) //RangeGen(0.001, 0.005)
+	p.Num, p.Gen = 2, gmask.RangeGen(0.001, 0.005)
 	f.AddParam(p)
 
-	p.Num, p.Gen = 3, gmask.ConstGen(0.025) //RangeGen(0.02, 0.03)
+	p.Num, p.Gen = 3, gmask.RangeGen(0.02, 0.03)
 	f.AddParam(p)
 
 	g := gmask.RndGen(gmask.TRI)
 	m := gmask.MaskGen(g, 200, 800)
-	q := gmask.ConstGen(400) //QuantGen(m, gmask.BpfGen([]float64{200, 50}, nil), 0.95,
-		//gmask.BpfGen([]float64{0, 150}, nil))
+	q := gmask.QuantGen(m, gmask.BpfGen([]float64{200, 50}, nil), 0.95,
+		gmask.BpfGen([]float64{0, 150}, nil))
 	p.Num, p.Gen = 4, q
 	f.AddParam(p)
 
-	p.Num, p.Gen = 5, gmask.ConstGen(0.55) //RangeGen(0.5, 0.6)
+	p.Num, p.Gen = 5, gmask.RangeGen(0.5, 0.6)
 	f.AddParam(p)
 
 	g = gmask.RndGen(gmask.UNI)
-	m = gmask.ConstGen(0.9) //MaskGen(g, gmask.BpfGen([]float64{0, 0, 5, 0.8, 10, 0}, nil),
-		//gmask.BpfGen([]float64{0, 0.2, 5, 1, 10, 0.2}, nil))
+	m = gmask.MaskGen(g, gmask.BpfGen([]float64{0, 0, 5, 0.8, 10, 0}, nil),
+		gmask.BpfGen([]float64{0, 0.2, 5, 1, 10, 0.2}, nil))
 	p.Num, p.Gen = 6, m
 	f.AddParam(p)
 
