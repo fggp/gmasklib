@@ -123,7 +123,11 @@ func main() {
 	cs.CompileOrc(orc)
 	cs.ReadScore(sco)
 	cs.Start()
-	go events1(cs)
+	// Here we have a subtle issue. As the first field will generate more than
+	// 1300 notes, there is a risk that the system can not compute all the notes
+	// in real-time. So calling events1 as a normal func will block the system
+	// until the field is computed. Then we can launch go routines as usual...
+	events1(cs)
 	go events2(cs)
 	go events3(cs)
 	done := make(chan bool)

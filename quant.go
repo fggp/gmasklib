@@ -56,7 +56,8 @@ func QuantGen(gen Generator, params ...interface{}) Generator {
 			factor = 1.0 - strength
 		}
 		val -= offset
-		qval, diff := math.Modf(val)
+		diff := math.Mod(val, delta)
+		qval := val - diff
 		if diff > delta/2.0 {
 			qval += delta
 		}

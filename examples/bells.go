@@ -31,7 +31,7 @@ f 0 20`
 
 func events(cs csnd6.CSOUND) {
 	f := gmask.NewField(0, 20)
-	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
+	p := gmask.NewParam(1, gmask.ConstGen(1), 2)
 	f.AddParam(p)
 
 	g := gmask.RndGen(gmask.UNI)

@@ -60,7 +60,7 @@ f5 0 0 -1 "../samples/door5.aif" 0 4 1
 f6 0 0 -1 "../samples/door6.aif" 0 4 1
 
 f10 0 8192 9 .25 1 0
-i99 0 23`
+i99 0 27`
 
 func events(cs csnd6.CSOUND) {
 	f := gmask.NewField(0, 20)
@@ -84,10 +84,10 @@ func events(cs csnd6.CSOUND) {
 	p.Num, p.Gen = 4, m
 	f.AddParam(p)
 
-	p.Num, p.Gen = 5, gmask.RangeGen(1, 6)
+	p.Num, p.Gen, p.Prec = 5, gmask.RangeGen(1, 6), 0
 	f.AddParam(p)
 
-	p.Num, p.Gen = 6, gmask.RangeGen(0, 1)
+	p.Num, p.Gen, p.Prec = 6, gmask.RangeGen(0, 1), 5
 	f.AddParam(p)
 
 	i = gmask.NewInterpolation(1, false, false)

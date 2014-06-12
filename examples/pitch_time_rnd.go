@@ -43,13 +43,13 @@ func events1(cs csnd6.CSOUND) {
 
 	g := gmask.ConstGen(0.002)
 	a := gmask.AccumGen(g, gmask.ON)
-	p.Num, p.Gen = 4, a
+	p.Num, p.Gen, p.Prec = 4, a, 3
 	f.AddParam(p)
 
 	g = gmask.RangeGen(0.5, 2.5)
 	b := gmask.BpfGen([]float64{0, 0, 5, 1, 17, 1, 22, 0}, nil)
 	q := gmask.QuantGen(g, 0.5, b)
-	p.Num, p.Gen = 5, q
+	p.Num, p.Gen, p.Prec = 5, q, 5
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)
@@ -68,10 +68,10 @@ func events2(cs csnd6.CSOUND) {
 
 	g := gmask.ConstGen(0.002)
 	a := gmask.AccumGen(g, gmask.ON)
-	p.Num, p.Gen = 4, a
+	p.Num, p.Gen, p.Prec = 4, a, 3
 	f.AddParam(p)
 
-	p.Num, p.Gen = 5, gmask.ConstGen(3.0)
+	p.Num, p.Gen, p.Prec = 5, gmask.ConstGen(3.0), 5
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)

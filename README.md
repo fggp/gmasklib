@@ -27,6 +27,7 @@ Cmask was published under GPL. Thanks to Andre who kindly allowed me to publish 
 "Dear François,
 
 thanks for bringing Cmask to a new life!
+
 Yes, you may publish Gmask under LGPL.
 
 best

@@ -68,15 +68,15 @@ func events1(cs csnd6.CSOUND) {
 	g := gmask.RndGen(gmask.EXP, 2)
 	m := gmask.MaskGen(g, 0.1, 0.5, 1)
 	q := gmask.QuantGen(m, 0.1, 0.96)
-	p.Num, p.Gen = 2, q
+	p.Num, p.Gen, p.Prec = 2, q, 4
 	f.AddParam(p)
 
 	g = gmask.RangeGen(0.4, 0.5)
-	p.Num, p.Gen = 3, g
+	p.Num, p.Gen, p.Prec = 3, g, 2
 	f.AddParam(p)
 
 	g = gmask.RangeGen(0, 4)
-	p.Num, p.Gen = 4, g
+	p.Num, p.Gen, p.Prec = 4, g, 5
 	f.AddParam(p)
 
 	g = gmask.RangeGen(7, 9)
@@ -94,7 +94,7 @@ func events2(cs csnd6.CSOUND) {
 	g := gmask.RndGen(gmask.RLIN)
 	m := gmask.MaskGen(g, 0.3, 1, 1)
 	q := gmask.QuantGen(m, 0.3, 0.96)
-	p.Num, p.Gen = 2, q
+	p.Num, p.Gen, p.Prec = 2, q, 2
 	f.AddParam(p)
 
 	g = gmask.RangeGen(0.4, 0.5)
@@ -102,7 +102,7 @@ func events2(cs csnd6.CSOUND) {
 	f.AddParam(p)
 
 	g = gmask.RangeGen(0, 1)
-	p.Num, p.Gen = 4, g
+	p.Num, p.Gen, p.Prec = 4, g, 5
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)
@@ -116,7 +116,7 @@ func events3(cs csnd6.CSOUND) {
 	g := gmask.RndGen(gmask.BETA, 0.2, 0.5)
 	m := gmask.MaskGen(g, 0.1, 1, 1)
 	q := gmask.QuantGen(m, 0.2, 0.9)
-	p.Num, p.Gen = 2, q
+	p.Num, p.Gen, p.Prec = 2, q, 2
 	f.AddParam(p)
 
 	g = gmask.RangeGen(0.8, 1.5)
@@ -124,7 +124,7 @@ func events3(cs csnd6.CSOUND) {
 	f.AddParam(p)
 
 	g = gmask.RangeGen(0, 3)
-	p.Num, p.Gen = 4, g
+	p.Num, p.Gen, p.Prec = 4, g, 5
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)

@@ -43,7 +43,7 @@ func events(cs csnd6.CSOUND) {
 
 	g := gmask.RangeGen(0.5, 2)
 	q := gmask.QuantGen(g, 0.5, 1)
-	p.Num, p.Gen = 4, q
+	p.Num, p.Gen, p.Prec = 4, q, 3
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)

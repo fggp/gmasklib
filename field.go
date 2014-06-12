@@ -5,6 +5,7 @@ import (
 	"fmt"
 	csnd6 "github.com/fggp/go-csnd6"
 	"io"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -57,17 +58,27 @@ func NewInterpolation(val float64, cos, off bool) *Interpolation {
 	return &ipl
 }
 
+func pVal(p Param, t, start, end float64) float64 {
+	v := p.Value(t, start, end)
+	prec := p.Prec
+	if prec < 0 || prec > 5 {
+		return v
+	}
+	m := math.Pow(10.0, float64(prec))
+	return math.Floor(v*m+0.5) / m
+}
+
 // Evaluate a field generating score events sent to Csound via the API
 // scoreEvent or scoreEventAbsolute functions.
 func (f *Field) EvalToScoreEvents(cs csnd6.CSOUND, absolute bool, timeOfs float64) {
 	t := f.Start
 	pFields := make([]csnd6.MYFLT, len(f.Params))
 	for {
-		pFields[0] = csnd6.MYFLT(f.Params[0].Value(t, f.Start, f.End))
+		pFields[0] = csnd6.MYFLT(pVal(f.Params[0], t, f.Start, f.End))
 		pFields[1] = csnd6.MYFLT(t)
 		for i := 2; i < len(f.Params); i++ {
 			if f.Params[i].Num == i+1 {
-				pFields[i] = csnd6.MYFLT(f.Params[i].Value(t, f.Start, f.End))
+				pFields[i] = csnd6.MYFLT(pVal(f.Params[i], t, f.Start, f.End))
 			} else {
 				break
 			}
@@ -77,7 +88,7 @@ func (f *Field) EvalToScoreEvents(cs csnd6.CSOUND, absolute bool, timeOfs float6
 		} else {
 			cs.ScoreEvent('i', pFields)
 		}
-		if t += f.Params[1].Value(t, f.Start, f.End); t > f.End {
+		if t += pVal(f.Params[1], t, f.Start, f.End); t > f.End {
 			break
 		}
 	}

@@ -43,10 +43,10 @@ func events(cs csnd6.CSOUND) {
 
 	g := gmask.ConstGen(0.002)
 	a := gmask.AccumGen(g, gmask.ON)
-	p.Num, p.Gen = 4, a
+	p.Num, p.Gen, p.Prec = 4, a, 3
 	f.AddParam(p)
 
-	p.Num, p.Gen = 5, gmask.ConstGen(1.5)
+	p.Num, p.Gen, p.Prec = 5, gmask.ConstGen(1.5), 5
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)
