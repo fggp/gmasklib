@@ -3,7 +3,7 @@ package gmask
 import (
 	"bufio"
 	"fmt"
-	csnd6 "github.com/fggp/go-csnd6"
+	"github.com/fggp/go-csnd6"
 	"io"
 	"math"
 	"strconv"

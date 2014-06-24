@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/fggp/gmask"
-	csnd6 "github.com/fggp/go-csnd6"
+	"github.com/fggp/go-csnd6"
 )
 
 var orc string = `
