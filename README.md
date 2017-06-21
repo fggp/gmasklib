@@ -23,7 +23,8 @@ with `go install`.
 
 The original Cmask software was written by Andre Bartetzki. Andre has stopped Cmask development but the software is still present on his site: http://www.bartetzki.de/en/software.html.
 
-Cmask was published under GPL. Thanks to Andre who kindly allowed me to publish gmask under LGPL:
+Cmask was published under GPL. Thanks to Andre who kindly allowed me to publish gmask under LGPL:  
+
 "Dear François,
 
 thanks for bringing Cmask to a new life!  
