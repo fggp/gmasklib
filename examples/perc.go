@@ -60,7 +60,7 @@ f5 0 8 -2 0 .02 .04 .07 .09
 
 f 0 20`
 
-func events1(cs csnd6.CSOUND) {
+func events1(cs csnd6.CSOUND, ready chan bool) {
 	f := gmask.NewField(0, 20)
 	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
 	f.AddParam(p)
@@ -84,9 +84,10 @@ func events1(cs csnd6.CSOUND) {
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)
+	ready <- true
 }
 
-func events2(cs csnd6.CSOUND) {
+func events2(cs csnd6.CSOUND, ready chan bool) {
 	f := gmask.NewField(0, 20)
 	p := gmask.NewParam(1, gmask.ConstGen(2), 5)
 	f.AddParam(p)
@@ -106,9 +107,10 @@ func events2(cs csnd6.CSOUND) {
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)
+	ready <- true
 }
 
-func events3(cs csnd6.CSOUND) {
+func events3(cs csnd6.CSOUND, ready chan bool) {
 	f := gmask.NewField(0, 20)
 	p := gmask.NewParam(1, gmask.ConstGen(3), 5)
 	f.AddParam(p)
@@ -128,6 +130,7 @@ func events3(cs csnd6.CSOUND) {
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)
+	ready <- true
 }
 
 func perform(cs csnd6.CSOUND, done chan bool) {
@@ -141,9 +144,13 @@ func main() {
 	cs.CompileOrc(orc)
 	cs.ReadScore(sco)
 	cs.Start()
-	go events1(cs)
-	go events2(cs)
-	go events3(cs)
+	ready := make(chan bool, 3)
+	go events1(cs, ready)
+	go events2(cs, ready)
+	go events3(cs, ready)
+	for i := 1; i <= 3; i++ {
+		<-ready
+	}
 	done := make(chan bool)
 	go perform(cs, done)
 	<-done

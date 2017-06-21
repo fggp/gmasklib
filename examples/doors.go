@@ -109,7 +109,7 @@ func main() {
 	cs.CompileOrc(orc)
 	cs.ReadScore(sco)
 	cs.Start()
-	go events(cs)
+	events(cs)
 	done := make(chan bool)
 	go perform(cs, done)
 	<-done

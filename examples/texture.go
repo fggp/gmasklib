@@ -24,7 +24,7 @@ f2 0 8193 10 1 .5 .3 .2 .1
 
 f 0 10`
 
-func events1(cs csnd6.CSOUND) {
+func events1(cs csnd6.CSOUND, ready chan bool) {
 	f := gmask.NewField(0, 10)
 	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
 	f.AddParam(p)
@@ -52,9 +52,10 @@ func events1(cs csnd6.CSOUND) {
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)
+	ready <- true
 }
 
-func events2(cs csnd6.CSOUND) {
+func events2(cs csnd6.CSOUND, ready chan bool) {
 	f := gmask.NewField(4, 6)
 	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
 	f.AddParam(p)
@@ -78,9 +79,10 @@ func events2(cs csnd6.CSOUND) {
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)
+	ready <- true
 }
 
-func events3(cs csnd6.CSOUND) {
+func events3(cs csnd6.CSOUND, ready chan bool) {
 	f := gmask.NewField(6.5, 9.5)
 	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
 	f.AddParam(p)
@@ -110,6 +112,7 @@ func events3(cs csnd6.CSOUND) {
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)
+	ready <- true
 }
 
 func perform(cs csnd6.CSOUND, done chan bool) {
@@ -123,13 +126,13 @@ func main() {
 	cs.CompileOrc(orc)
 	cs.ReadScore(sco)
 	cs.Start()
-	// Here we have a subtle issue. As the first field will generate more than
-	// 1300 notes, there is a risk that the system can not compute all the notes
-	// in real-time. So calling events1 as a normal func will block the system
-	// until the field is computed. Then we can launch go routines as usual...
-	events1(cs)
-	go events2(cs)
-	go events3(cs)
+	ready := make(chan bool, 3)
+	go events1(cs, ready)
+	go events2(cs, ready)
+	go events3(cs, ready)
+	for i := 1; i <= 3; i++ {
+		<-ready
+	}
 	done := make(chan bool)
 	go perform(cs, done)
 	<-done
