@@ -10,4 +10,4 @@ The parser is defined in the gmask.y file. It is generated using the command
 
 Then one can build and install the program with the command `go install`.
 
-Once the program is built, you can run the examples in the 'examples' directory with the command 'csound example-name.csd', provided that the gmask program is in your path.
+Once the program is built, you can run the examples in the 'examples' directory with the command 'csound example-name.csd', provided that the gmask program is in your path, and the samples are reachable, e.g. in SSDIR.
