@@ -10,4 +10,4 @@ by Csound and executed. So a simple command like `csound axa1.csd` launches
 all the process.  
 
 Note: some csd files use samples. These samples have to be reachable: you shoudl copy
-them from the github.com/fggp/gmask/samples into your SSDIR.
+them from the [https://github.com/fggp/gmask/samples](https://github.com/fggp/gmask/tree/master/samples) into your SSDIR.
