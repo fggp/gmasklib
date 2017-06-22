@@ -54,12 +54,12 @@ endin
 
 <CsScore bin="gmask">
 {
-f1 0 0 -1 "../../samples/door1.aif" 0 4 1
-f2 0 0 -1 "../../samples/door2.aif" 0 4 1
-f3 0 0 -1 "../../samples/door3.aif" 0 4 1
-f4 0 0 -1 "../../samples/door4.aif" 0 4 1
-f5 0 0 -1 "../../samples/door5.aif" 0 4 1
-f6 0 0 -1 "../../samples/door6.aif" 0 4 1
+f1 0 0 -1 "door1.aif" 0 4 1
+f2 0 0 -1 "door2.aif" 0 4 1
+f3 0 0 -1 "door3.aif" 0 4 1
+f4 0 0 -1 "door4.aif" 0 4 1
+f5 0 0 -1 "door5.aif" 0 4 1
+f6 0 0 -1 "door6.aif" 0 4 1
 
 f10 0 8192 9 .25 1 0
 i99 0 27

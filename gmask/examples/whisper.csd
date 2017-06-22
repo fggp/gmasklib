@@ -25,7 +25,7 @@ endin
 
 <CsScore bin="gmask">
 {
-f1 0 262144 1 "../../samples/whisp.aif" 0 4 1
+f1 0 262144 1 "whisp.aif" 0 4 1
 ;= 5.94 sec
 f2 0 8192 19 1 1 270 1
 f4 0 8192 9 .25 1 0			; pan function

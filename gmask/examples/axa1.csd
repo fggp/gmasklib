@@ -31,7 +31,7 @@ asig	=	asig*k1
 
 <CsScore bin="gmask">
 {
-f1 0 65536 1 "../../samples/axaxaxas.aif" 0 4 1
+f1 0 65536 1 "axaxaxas.aif" 0 4 1
 ;= 1.4861 sec
 
 f2 0 8193 19 1 1 270 1
