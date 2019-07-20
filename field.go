@@ -3,7 +3,7 @@ package gmask
 import (
 	"bufio"
 	"fmt"
-	"github.com/fggp/go-csnd6"
+	"github.com/fggp/go-csnd"
 	"io"
 	"math"
 	"strconv"
@@ -70,15 +70,15 @@ func pVal(p Param, t, start, end float64) float64 {
 
 // Evaluate a field generating score events sent to Csound via the API
 // scoreEvent or scoreEventAbsolute functions.
-func (f *Field) EvalToScoreEvents(cs csnd6.CSOUND, absolute bool, timeOfs float64) {
+func (f *Field) EvalToScoreEvents(cs csnd.CSOUND, absolute bool, timeOfs float64) {
 	t := f.Start
-	pFields := make([]csnd6.MYFLT, len(f.Params))
+	pFields := make([]csnd.MYFLT, len(f.Params))
 	for {
-		pFields[0] = csnd6.MYFLT(pVal(f.Params[0], t, f.Start, f.End))
-		pFields[1] = csnd6.MYFLT(t)
+		pFields[0] = csnd.MYFLT(pVal(f.Params[0], t, f.Start, f.End))
+		pFields[1] = csnd.MYFLT(t)
 		for i := 2; i < len(f.Params); i++ {
 			if f.Params[i].Num == i+1 {
-				pFields[i] = csnd6.MYFLT(pVal(f.Params[i], t, f.Start, f.End))
+				pFields[i] = csnd.MYFLT(pVal(f.Params[i], t, f.Start, f.End))
 			} else {
 				break
 			}

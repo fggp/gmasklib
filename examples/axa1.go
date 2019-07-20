@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/fggp/gmask"
-	"github.com/fggp/go-csnd6"
+	"github.com/fggp/go-csnd"
 )
 
 var orc string = `
@@ -37,7 +37,7 @@ f4 0 8192 9 .25 1 0
 
 f 0 5`
 
-func events(cs csnd6.CSOUND) {
+func events(cs csnd.CSOUND) {
 	f := gmask.NewField(0, 5)
 	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
 	f.AddParam(p)
@@ -58,13 +58,13 @@ func events(cs csnd6.CSOUND) {
 	f.EvalToScoreEvents(cs, true, 0)
 }
 
-func perform(cs csnd6.CSOUND, done chan bool) {
+func perform(cs csnd.CSOUND, done chan bool) {
 	cs.Perform()
 	done <- true
 }
 
 func main() {
-	cs := csnd6.Create(nil)
+	cs := csnd.Create(nil)
 	cs.SetOption("-odac")
 	cs.CompileOrc(orc)
 	cs.ReadScore(sco)
