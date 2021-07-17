@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/fggp/gmask"
+	"github.com/fggp/gmasklib"
 	"github.com/fggp/go-csnd"
 )
 
@@ -31,17 +31,17 @@ f2 0 8193 8 0 4096 1 4096 0
 f 0 2.2`
 
 func events(cs csnd.CSOUND) {
-	f := gmask.NewField(0, 2.2)
-	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
+	f := gmasklib.NewField(0, 2.2)
+	p := gmasklib.NewParam(1, gmasklib.ConstGen(1), 5)
 	f.AddParam(p)
 
-	p.Num, p.Gen = 2, gmask.ConstGen(0.01)
+	p.Num, p.Gen = 2, gmasklib.ConstGen(0.01)
 	f.AddParam(p)
 
-	p.Num, p.Gen = 3, gmask.ConstGen(0.02)
+	p.Num, p.Gen = 3, gmasklib.ConstGen(0.02)
 	f.AddParam(p)
 
-	b := gmask.BpfGen([]float64{1, 2.2}, gmask.NewInterpolation(0.3, false, false))
+	b := gmasklib.BpfGen([]float64{1, 2.2}, gmasklib.NewInterpolation(0.3, false, false))
 	p.Num, p.Gen = 4, b
 	f.AddParam(p)
 

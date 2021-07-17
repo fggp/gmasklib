@@ -1,4 +1,4 @@
-package gmask
+package gmasklib
 
 // Constant generator factory. The argument is the constant value to be returned
 // by the generator.

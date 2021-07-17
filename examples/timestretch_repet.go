@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/fggp/gmask"
+	"github.com/fggp/gmasklib"
 	"github.com/fggp/go-csnd"
 )
 
@@ -31,21 +31,21 @@ f2 0 8193 8 0 4096 1 4096 0
 f 0 11`
 
 func events(cs csnd.CSOUND) {
-	f := gmask.NewField(0, 11)
-	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
+	f := gmasklib.NewField(0, 11)
+	p := gmasklib.NewParam(1, gmasklib.ConstGen(1), 5)
 	f.AddParam(p)
 
-	g := gmask.RndGen(gmask.UNI)
-	m := gmask.MaskGen(g, gmask.BpfGen([]float64{0, 0.05, 5, 0.2, 11, 0.05}, nil),
-		gmask.BpfGen([]float64{0, 0.1, 5, 0.2}, nil), 1)
+	g := gmasklib.RndGen(gmasklib.UNI)
+	m := gmasklib.MaskGen(g, gmasklib.BpfGen([]float64{0, 0.05, 5, 0.2, 11, 0.05}, nil),
+		gmasklib.BpfGen([]float64{0, 0.1, 5, 0.2}, nil), 1)
 	p.Num, p.Gen, p.Prec = 2, m, 2
 	f.AddParam(p)
 
-	p.Num, p.Gen, p.Prec = 3, gmask.ConstGen(0.2), 5
+	p.Num, p.Gen, p.Prec = 3, gmasklib.ConstGen(0.2), 5
 	f.AddParam(p)
 
-	g = gmask.BpfGen([]float64{0, 2.1}, nil)
-	p.Num, p.Gen = 4, gmask.QuantGen(g, 0.1)
+	g = gmasklib.BpfGen([]float64{0, 2.1}, nil)
+	p.Num, p.Gen = 4, gmasklib.QuantGen(g, 0.1)
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)

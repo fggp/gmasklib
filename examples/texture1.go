@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/fggp/gmask"
+	"github.com/fggp/gmasklib"
 	"github.com/fggp/go-csnd"
 )
 
@@ -32,29 +32,29 @@ f2 0 8193 10 1
 f 0 33`
 
 func events1(cs csnd.CSOUND, ready chan bool) {
-	f := gmask.NewField(0, 30)
-	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
+	f := gmasklib.NewField(0, 30)
+	p := gmasklib.NewParam(1, gmasklib.ConstGen(1), 5)
 	f.AddParam(p)
 
-	g := gmask.RndGen(gmask.UNI)
-	m := gmask.MaskGen(g, gmask.BpfGen([]float64{0.01, 0.002}, nil),
-		gmask.BpfGen([]float64{0.1, 0.01}, nil))
+	g := gmasklib.RndGen(gmasklib.UNI)
+	m := gmasklib.MaskGen(g, gmasklib.BpfGen([]float64{0.01, 0.002}, nil),
+		gmasklib.BpfGen([]float64{0.1, 0.01}, nil))
 	p.Num, p.Gen = 2, m
 	f.AddParam(p)
 
-	p.Num, p.Gen = 3, gmask.RangeGen(0.5, 1)
+	p.Num, p.Gen = 3, gmasklib.RangeGen(0.5, 1)
 	f.AddParam(p)
 
-	b1 := gmask.BpfGen([]float64{860, 80}, gmask.NewInterpolation(-1.2, false, false))
-	b2 := gmask.BpfGen([]float64{940, 2000}, gmask.NewInterpolation(1, false, false))
-	m = gmask.MaskGen(g, b1, b2, 1)
-	q := gmask.QuantGen(m, 100, 0.9, 0)
+	b1 := gmasklib.BpfGen([]float64{860, 80}, gmasklib.NewInterpolation(-1.2, false, false))
+	b2 := gmasklib.BpfGen([]float64{940, 2000}, gmasklib.NewInterpolation(1, false, false))
+	m = gmasklib.MaskGen(g, b1, b2, 1)
+	q := gmasklib.QuantGen(m, 100, 0.9, 0)
 	p.Num, p.Gen = 4, q
 	f.AddParam(p)
 
-	b1 = gmask.BpfGen([]float64{0.4, 0}, nil)
-	b2 = gmask.BpfGen([]float64{0.6, 1}, nil)
-	p.Num, p.Gen = 5, gmask.MaskGen(g, b1, b2)
+	b1 = gmasklib.BpfGen([]float64{0.4, 0}, nil)
+	b2 = gmasklib.BpfGen([]float64{0.6, 1}, nil)
+	p.Num, p.Gen = 5, gmasklib.MaskGen(g, b1, b2)
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)
@@ -62,22 +62,22 @@ func events1(cs csnd.CSOUND, ready chan bool) {
 }
 
 func events2(cs csnd.CSOUND, ready chan bool) {
-	f := gmask.NewField(31, 33)
-	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
+	f := gmasklib.NewField(31, 33)
+	p := gmasklib.NewParam(1, gmasklib.ConstGen(1), 5)
 	f.AddParam(p)
 
-	g := gmask.BpfGen([]float64{0.08, 0.8}, gmask.NewInterpolation(2, false, false))
+	g := gmasklib.BpfGen([]float64{0.08, 0.8}, gmasklib.NewInterpolation(2, false, false))
 	p.Num, p.Gen = 2, g
 	f.AddParam(p)
 
-	g = gmask.BpfGen([]float64{0.1, 2}, nil)
+	g = gmasklib.BpfGen([]float64{0.1, 2}, nil)
 	p.Num, p.Gen = 3, g
 	f.AddParam(p)
 
-	p.Num, p.Gen = 4, gmask.RangeGen(300, 400)
+	p.Num, p.Gen = 4, gmasklib.RangeGen(300, 400)
 	f.AddParam(p)
 
-	g = gmask.BpfGen([]float64{0, 1}, nil)
+	g = gmasklib.BpfGen([]float64{0, 1}, nil)
 	p.Num, p.Gen = 5, g
 	f.AddParam(p)
 

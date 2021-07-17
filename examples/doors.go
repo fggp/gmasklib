@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/fggp/gmask"
+	"github.com/fggp/gmasklib"
 	"github.com/fggp/go-csnd"
 )
 
@@ -63,35 +63,35 @@ f10 0 8192 9 .25 1 0
 i99 0 27`
 
 func events(cs csnd.CSOUND) {
-	f := gmask.NewField(0, 20)
-	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
+	f := gmasklib.NewField(0, 20)
+	p := gmasklib.NewParam(1, gmasklib.ConstGen(1), 5)
 	f.AddParam(p)
 
-	g := gmask.RndGen(gmask.BETA, 0.05, 0.1)
-	m := gmask.MaskGen(g, gmask.BpfGen([]float64{12, 0.01, 18, 0.2}, nil),
-		gmask.BpfGen([]float64{12, 0.1, 18, 1}, nil))
+	g := gmasklib.RndGen(gmasklib.BETA, 0.05, 0.1)
+	m := gmasklib.MaskGen(g, gmasklib.BpfGen([]float64{12, 0.01, 18, 0.2}, nil),
+		gmasklib.BpfGen([]float64{12, 0.1, 18, 1}, nil))
 	p.Num, p.Gen = 2, m
 	f.AddParam(p)
 
-	i := gmask.NewInterpolation(0.4, false, false)
-	g = gmask.BpfGen([]float64{0.3, 1.2}, i)
+	i := gmasklib.NewInterpolation(0.4, false, false)
+	g = gmasklib.BpfGen([]float64{0.3, 1.2}, i)
 	p.Num, p.Gen = 3, g
 	f.AddParam(p)
 
-	g = gmask.RndGen(gmask.UNI)
-	m = gmask.MaskGen(g, gmask.BpfGen([]float64{3, 0.8}, i),
-		gmask.BpfGen([]float64{5, 1.2}, i))
+	g = gmasklib.RndGen(gmasklib.UNI)
+	m = gmasklib.MaskGen(g, gmasklib.BpfGen([]float64{3, 0.8}, i),
+		gmasklib.BpfGen([]float64{5, 1.2}, i))
 	p.Num, p.Gen = 4, m
 	f.AddParam(p)
 
-	p.Num, p.Gen, p.Prec = 5, gmask.RangeGen(1, 6), 0
+	p.Num, p.Gen, p.Prec = 5, gmasklib.RangeGen(1, 6), 0
 	f.AddParam(p)
 
-	p.Num, p.Gen, p.Prec = 6, gmask.RangeGen(0, 1), 5
+	p.Num, p.Gen, p.Prec = 6, gmasklib.RangeGen(0, 1), 5
 	f.AddParam(p)
 
-	i = gmask.NewInterpolation(1, false, false)
-	g = gmask.BpfGen([]float64{2, 0, 18, 0.5}, i)
+	i = gmasklib.NewInterpolation(1, false, false)
+	g = gmasklib.BpfGen([]float64{2, 0, 18, 0.5}, i)
 	p.Num, p.Gen = 7, g
 	f.AddParam(p)
 

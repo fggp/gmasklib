@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/fggp/gmask"
+	"github.com/fggp/gmasklib"
 	"github.com/fggp/go-csnd"
 )
 
@@ -31,21 +31,21 @@ f2 0 8193 8 0 4096 1 4096 0
 f 0 11`
 
 func events(cs csnd.CSOUND) {
-	f := gmask.NewField(0, 11)
-	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
+	f := gmasklib.NewField(0, 11)
+	p := gmasklib.NewParam(1, gmasklib.ConstGen(1), 5)
 	f.AddParam(p)
 
-	g := gmask.RndGen(gmask.UNI)
-	i := gmask.NewInterpolation(1.5, false, false)
-	m := gmask.MaskGen(g, gmask.BpfGen([]float64{0.2, 0.005}, i),
-		gmask.BpfGen([]float64{0.4, 0.01}, i), 1)
+	g := gmasklib.RndGen(gmasklib.UNI)
+	i := gmasklib.NewInterpolation(1.5, false, false)
+	m := gmasklib.MaskGen(g, gmasklib.BpfGen([]float64{0.2, 0.005}, i),
+		gmasklib.BpfGen([]float64{0.4, 0.01}, i), 1)
 	p.Num, p.Gen, p.Prec = 2, m, 4
 	f.AddParam(p)
 
-	p.Num, p.Gen, p.Prec = 3, gmask.RangeGen(0.02, 0.05), 2
+	p.Num, p.Gen, p.Prec = 3, gmasklib.RangeGen(0.02, 0.05), 2
 	f.AddParam(p)
 
-	p.Num, p.Gen, p.Prec = 4, gmask.RangeGen(0, 2.1), 3
+	p.Num, p.Gen, p.Prec = 4, gmasklib.RangeGen(0, 2.1), 3
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)

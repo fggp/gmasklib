@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/fggp/gmask"
+	"github.com/fggp/gmasklib"
 	"github.com/fggp/go-csnd"
 )
 
@@ -31,35 +31,35 @@ f4 0 8192 9 .25 1 0			; pan function
 f 0 60`
 
 func events(cs csnd.CSOUND) {
-	f := gmask.NewField(0, 60)
-	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
+	f := gmasklib.NewField(0, 60)
+	p := gmasklib.NewParam(1, gmasklib.ConstGen(1), 5)
 	f.AddParam(p)
 
-	g := gmask.RndGen(gmask.UNI)
-	b1 := gmask.BpfGen([]float64{0, 0.0005, 37, 0.007, 60, 0.003}, nil)
-	b2 := gmask.BpfGen([]float64{0, 0.003, 37, 0.15, 60, 0.005}, nil)
-	m := gmask.MaskGen(g, b1, b2)
+	g := gmasklib.RndGen(gmasklib.UNI)
+	b1 := gmasklib.BpfGen([]float64{0, 0.0005, 37, 0.007, 60, 0.003}, nil)
+	b2 := gmasklib.BpfGen([]float64{0, 0.003, 37, 0.15, 60, 0.005}, nil)
+	m := gmasklib.MaskGen(g, b1, b2)
 	p.Num, p.Gen = 2, m
 	f.AddParam(p)
 
-	b1 = gmask.BpfGen([]float64{0.3, 0.02}, nil)
-	b2 = gmask.BpfGen([]float64{0.7, 0.04}, nil)
-	m = gmask.MaskGen(g, b1, b2)
+	b1 = gmasklib.BpfGen([]float64{0.3, 0.02}, nil)
+	b2 = gmasklib.BpfGen([]float64{0.7, 0.04}, nil)
+	m = gmasklib.MaskGen(g, b1, b2)
 	p.Num, p.Gen = 3, m
 	f.AddParam(p)
 
-	p.Num, p.Gen = 4, gmask.BpfGen([]float64{0, 5.9}, nil)
+	p.Num, p.Gen = 4, gmasklib.BpfGen([]float64{0, 5.9}, nil)
 	f.AddParam(p)
 
-	p.Num, p.Gen = 5, gmask.RangeGen(0, 1)
+	p.Num, p.Gen = 5, gmasklib.RangeGen(0, 1)
 	f.AddParam(p)
 
-	b1 = gmask.BpfGen([]float64{0, 0.3, 25, 1, 40, 0.7}, nil)
-	b2 = gmask.BpfGen([]float64{0, 2, 4, 1, 25, 1.2}, nil)
-	m = gmask.MaskGen(g, b1, b2)
-	b1 = gmask.BpfGen([]float64{0, 0, 25, 0.9, 30, 0, 45, 0.9, 55, 0}, nil)
-	b2 = gmask.BpfGen([]float64{40, 0, 45, 1.5, 55, 0}, nil)
-	q := gmask.QuantGen(m, 0.3, b1, b2)
+	b1 = gmasklib.BpfGen([]float64{0, 0.3, 25, 1, 40, 0.7}, nil)
+	b2 = gmasklib.BpfGen([]float64{0, 2, 4, 1, 25, 1.2}, nil)
+	m = gmasklib.MaskGen(g, b1, b2)
+	b1 = gmasklib.BpfGen([]float64{0, 0, 25, 0.9, 30, 0, 45, 0.9, 55, 0}, nil)
+	b2 = gmasklib.BpfGen([]float64{40, 0, 45, 1.5, 55, 0}, nil)
+	q := gmasklib.QuantGen(m, 0.3, b1, b2)
 	p.Num, p.Gen = 6, q
 	f.AddParam(p)
 

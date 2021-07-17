@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/fggp/gmask"
+	"github.com/fggp/gmasklib"
 	"github.com/fggp/go-csnd"
 )
 
@@ -31,19 +31,19 @@ f2 0 8193 8 0 4096 1 4096 0
 f 0 10`
 
 func events(cs csnd.CSOUND) {
-	f := gmask.NewField(0, 10)
-	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
+	f := gmasklib.NewField(0, 10)
+	p := gmasklib.NewParam(1, gmasklib.ConstGen(1), 5)
 	f.AddParam(p)
 
-	g := gmask.BpfGen([]float64{0.01, 0.12}, nil)
+	g := gmasklib.BpfGen([]float64{0.01, 0.12}, nil)
 	p.Num, p.Gen, p.Prec = 2, g, 2
 	f.AddParam(p)
 
-	p.Num, p.Gen, p.Prec = 3, gmask.ConstGen(0.02), 5
+	p.Num, p.Gen, p.Prec = 3, gmasklib.ConstGen(0.02), 5
 	f.AddParam(p)
 
-	g = gmask.ConstGen(0.01)
-	p.Num, p.Gen, p.Prec = 4, gmask.AccumGen(g, gmask.ON), 2
+	g = gmasklib.ConstGen(0.01)
+	p.Num, p.Gen, p.Prec = 4, gmasklib.AccumGen(g, gmasklib.ON), 2
 	f.AddParam(p)
 
 	f.EvalToScoreEvents(cs, true, 0)

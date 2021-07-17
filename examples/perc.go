@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/fggp/gmask"
+	"github.com/fggp/gmasklib"
 	"github.com/fggp/go-csnd"
 )
 
@@ -61,25 +61,25 @@ f5 0 8 -2 0 .02 .04 .07 .09
 f 0 20`
 
 func events1(cs csnd.CSOUND, ready chan bool) {
-	f := gmask.NewField(0, 20)
-	p := gmask.NewParam(1, gmask.ConstGen(1), 5)
+	f := gmasklib.NewField(0, 20)
+	p := gmasklib.NewParam(1, gmasklib.ConstGen(1), 5)
 	f.AddParam(p)
 
-	g := gmask.RndGen(gmask.EXP, 2)
-	m := gmask.MaskGen(g, 0.1, 0.5, 1)
-	q := gmask.QuantGen(m, 0.1, 0.96)
+	g := gmasklib.RndGen(gmasklib.EXP, 2)
+	m := gmasklib.MaskGen(g, 0.1, 0.5, 1)
+	q := gmasklib.QuantGen(m, 0.1, 0.96)
 	p.Num, p.Gen, p.Prec = 2, q, 4
 	f.AddParam(p)
 
-	g = gmask.RangeGen(0.4, 0.5)
+	g = gmasklib.RangeGen(0.4, 0.5)
 	p.Num, p.Gen, p.Prec = 3, g, 2
 	f.AddParam(p)
 
-	g = gmask.RangeGen(0, 4)
+	g = gmasklib.RangeGen(0, 4)
 	p.Num, p.Gen, p.Prec = 4, g, 5
 	f.AddParam(p)
 
-	g = gmask.RangeGen(7, 9)
+	g = gmasklib.RangeGen(7, 9)
 	p.Num, p.Gen = 5, g
 	f.AddParam(p)
 
@@ -88,21 +88,21 @@ func events1(cs csnd.CSOUND, ready chan bool) {
 }
 
 func events2(cs csnd.CSOUND, ready chan bool) {
-	f := gmask.NewField(0, 20)
-	p := gmask.NewParam(1, gmask.ConstGen(2), 5)
+	f := gmasklib.NewField(0, 20)
+	p := gmasklib.NewParam(1, gmasklib.ConstGen(2), 5)
 	f.AddParam(p)
 
-	g := gmask.RndGen(gmask.RLIN)
-	m := gmask.MaskGen(g, 0.3, 1, 1)
-	q := gmask.QuantGen(m, 0.3, 0.96)
+	g := gmasklib.RndGen(gmasklib.RLIN)
+	m := gmasklib.MaskGen(g, 0.3, 1, 1)
+	q := gmasklib.QuantGen(m, 0.3, 0.96)
 	p.Num, p.Gen, p.Prec = 2, q, 2
 	f.AddParam(p)
 
-	g = gmask.RangeGen(0.4, 0.5)
+	g = gmasklib.RangeGen(0.4, 0.5)
 	p.Num, p.Gen = 3, g
 	f.AddParam(p)
 
-	g = gmask.RangeGen(0, 1)
+	g = gmasklib.RangeGen(0, 1)
 	p.Num, p.Gen, p.Prec = 4, g, 5
 	f.AddParam(p)
 
@@ -111,21 +111,21 @@ func events2(cs csnd.CSOUND, ready chan bool) {
 }
 
 func events3(cs csnd.CSOUND, ready chan bool) {
-	f := gmask.NewField(0, 20)
-	p := gmask.NewParam(1, gmask.ConstGen(3), 5)
+	f := gmasklib.NewField(0, 20)
+	p := gmasklib.NewParam(1, gmasklib.ConstGen(3), 5)
 	f.AddParam(p)
 
-	g := gmask.RndGen(gmask.BETA, 0.2, 0.5)
-	m := gmask.MaskGen(g, 0.1, 1, 1)
-	q := gmask.QuantGen(m, 0.2, 0.9)
+	g := gmasklib.RndGen(gmasklib.BETA, 0.2, 0.5)
+	m := gmasklib.MaskGen(g, 0.1, 1, 1)
+	q := gmasklib.QuantGen(m, 0.2, 0.9)
 	p.Num, p.Gen, p.Prec = 2, q, 2
 	f.AddParam(p)
 
-	g = gmask.RangeGen(0.8, 1.5)
+	g = gmasklib.RangeGen(0.8, 1.5)
 	p.Num, p.Gen = 3, g
 	f.AddParam(p)
 
-	g = gmask.RangeGen(0, 3)
+	g = gmasklib.RangeGen(0, 3)
 	p.Num, p.Gen, p.Prec = 4, g, 5
 	f.AddParam(p)
 

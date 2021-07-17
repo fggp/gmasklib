@@ -1,4 +1,4 @@
-package gmask
+package gmasklib
 
 // Accumulator factory. The first argument is the generator which will send
 // values to the accumulator. The second argument is the accumulator mode. The

@@ -1,4 +1,4 @@
-package gmask
+package gmasklib
 
 type Interpolator func(t, t0, v0, t1, v1 float64) float64
 

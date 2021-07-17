@@ -1,4 +1,4 @@
-package gmask
+package gmasklib
 
 import "math/rand"
 
