@@ -3,7 +3,7 @@ package gmasklib
 import (
 	"bufio"
 	"fmt"
-	"github.com/fggp/go-csnd"
+	//"github.com/fggp/go-csnd"
 	"io"
 	"math"
 	"strconv"
@@ -68,6 +68,7 @@ func pVal(p Param, t, start, end float64) float64 {
 	return math.Floor(v*m+0.5) / m
 }
 
+/*
 // Evaluate a field generating score events sent to Csound via the API
 // scoreEvent or scoreEventAbsolute functions.
 func (f *Field) EvalToScoreEvents(cs csnd.CSOUND, absolute bool, timeOfs float64) {
@@ -93,6 +94,7 @@ func (f *Field) EvalToScoreEvents(cs csnd.CSOUND, absolute bool, timeOfs float64
 		}
 	}
 }
+*/
 
 func pFmt(format string, prec int) string {
 	return strings.Replace(format, "p", strconv.Itoa(prec), -1)
