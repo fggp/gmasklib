@@ -28,7 +28,8 @@ var sco string = `
 f1 0 131072 1 "../samples/schwermt.aif" 0 4 1  
 f4 0 8193 8 0 4096 1 4096 0
 
-f 0 22`
+f 0 22
+`
 
 func events1(cs csnd.CSOUND) {
 	f := gmasklib.NewField(0, 20)

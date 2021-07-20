@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"github.com/fggp/gmasklib"
 	"github.com/fggp/go-csnd"
 )
@@ -58,9 +59,10 @@ f3 0 8193 8 .8 1000 1 2192  .3 5000 0
 f4 0 8193 5 1 1193 0.02 7000 .01
 f5 0 8 -2 0 .02 .04 .07 .09 
 
-f 0 20`
+f 0 20
+`
 
-func events1(cs csnd.CSOUND, ready chan bool) {
+func events1(ret chan string) {
 	f := gmasklib.NewField(0, 20)
 	p := gmasklib.NewParam(1, gmasklib.ConstGen(1), 5)
 	f.AddParam(p)
@@ -83,11 +85,12 @@ func events1(cs csnd.CSOUND, ready chan bool) {
 	p.Num, p.Gen = 5, g
 	f.AddParam(p)
 
-	f.EvalToScoreEvents(cs, true, 0)
-	ready <- true
+	var buf bytes.Buffer
+	f.EvalToScore(&buf, 1)
+	ret <- buf.String()
 }
 
-func events2(cs csnd.CSOUND, ready chan bool) {
+func events2(ret chan string) {
 	f := gmasklib.NewField(0, 20)
 	p := gmasklib.NewParam(1, gmasklib.ConstGen(2), 5)
 	f.AddParam(p)
@@ -106,11 +109,12 @@ func events2(cs csnd.CSOUND, ready chan bool) {
 	p.Num, p.Gen, p.Prec = 4, g, 5
 	f.AddParam(p)
 
-	f.EvalToScoreEvents(cs, true, 0)
-	ready <- true
+	var buf bytes.Buffer
+	f.EvalToScore(&buf, 2)
+	ret <- buf.String()
 }
 
-func events3(cs csnd.CSOUND, ready chan bool) {
+func events3(ret chan string) {
 	f := gmasklib.NewField(0, 20)
 	p := gmasklib.NewParam(1, gmasklib.ConstGen(3), 5)
 	f.AddParam(p)
@@ -129,8 +133,9 @@ func events3(cs csnd.CSOUND, ready chan bool) {
 	p.Num, p.Gen, p.Prec = 4, g, 5
 	f.AddParam(p)
 
-	f.EvalToScoreEvents(cs, true, 0)
-	ready <- true
+	var buf bytes.Buffer
+	f.EvalToScore(&buf, 3)
+	ret <- buf.String()
 }
 
 func perform(cs csnd.CSOUND, done chan bool) {
@@ -142,15 +147,15 @@ func main() {
 	cs := csnd.Create(nil)
 	cs.SetOption("-odac")
 	cs.CompileOrc(orc)
+	s := make(chan string, 3)
+	go events1(s)
+	go events2(s)
+	go events3(s)
+	for i := 1; i <= 3; i++ {
+		sco += <-s
+	}
 	cs.ReadScore(sco)
 	cs.Start()
-	ready := make(chan bool, 3)
-	go events1(cs, ready)
-	go events2(cs, ready)
-	go events3(cs, ready)
-	for i := 1; i <= 3; i++ {
-		<-ready
-	}
 	done := make(chan bool)
 	go perform(cs, done)
 	<-done

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"github.com/fggp/gmasklib"
 	"github.com/fggp/go-csnd"
 )
@@ -28,9 +29,10 @@ var sco string = `
 f1 0 131072 1 "../samples/schwermt.aif" 0 4 1  ;43520
 f2 0 8193 8 0 4096 1 4096 0
 
-f 0 11`
+f 0 11
+`
 
-func events(cs csnd.CSOUND) {
+func events() string {
 	f := gmasklib.NewField(0, 11)
 	p := gmasklib.NewParam(1, gmasklib.ConstGen(1), 5)
 	f.AddParam(p)
@@ -44,7 +46,9 @@ func events(cs csnd.CSOUND) {
 	p.Num, p.Gen, p.Prec = 4, gmasklib.RangeGen(0, 2.1), 3
 	f.AddParam(p)
 
-	f.EvalToScoreEvents(cs, true, 0)
+	var buf bytes.Buffer
+	f.EvalToScore(&buf, 1)
+	return buf.String()
 }
 
 func perform(cs csnd.CSOUND, done chan bool) {
@@ -56,9 +60,8 @@ func main() {
 	cs := csnd.Create(nil)
 	cs.SetOption("-odac")
 	cs.CompileOrc(orc)
-	cs.ReadScore(sco)
+	cs.ReadScore(sco + events())
 	cs.Start()
-	events(cs)
 	done := make(chan bool)
 	go perform(cs, done)
 	<-done
