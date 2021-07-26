@@ -10,20 +10,21 @@ var orc string = `
 sr     = 44100
 ksmps  = 10
 nchnls = 2
+0dbfs  = 1.0
 
-          instr 1
+  instr 1
 ;p2 onset
 ;p3 duration
 ;p4 base frequency
 ;p5 fm index
 ;p6 pan (L=0, R=1)
 
-kenv	expon		1,p3,0.01
-kindx	expon		p5,p3,.4
-a1	foscil	kenv*10000,p4,1,1.143,kindx,1
-	outs		a1*(1-p6),a1*p6
-	
-          endin`
+kenv  = expon(1, p3, 0.01)
+kindx = expon(p5, p3, 0.4)
+a1    = foscil(kenv*0.31, p4, 1, 1.143, kindx, 1)
+        outs a1*(1-p6), a1*p6
+  endin
+`
 
 var sco string = `
 f1 0 8193 10 1
@@ -37,8 +38,8 @@ func events() string {
 	f.AddParam(p)
 
 	g := gmasklib.RndGen(gmasklib.UNI)
-	i1 := gmasklib.NewInterpolation(1, false, false)
-	i3 := gmasklib.NewInterpolation(3, false, false)
+	i1 := gmasklib.NewInterpolation(1, gmasklib.IPLNUM)
+	i3 := gmasklib.NewInterpolation(3, gmasklib.IPLNUM)
 
 	seg1 := []float64{0.03, 0.5}
 	seg2 := []float64{0.08, 1}

@@ -55,7 +55,7 @@ func events() string {
 	f.AddParam(p)
 
 	//p.Num, p.Gen = 5, gmasklib.ConstGen(0.5)
-	p.Num, p.Gen = 5, gmasklib.BpfGen([]float64{0, 0, 2.5, 1, 5, 0}, 
+	p.Num, p.Gen = 5, gmasklib.BpfGen([]float64{0, 0, 2.5, 1, 5, 0},
 		gmasklib.NewInterpolation(0, gmasklib.IPLOFF))
 	f.AddParam(p)
 
