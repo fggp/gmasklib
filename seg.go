@@ -15,16 +15,16 @@ import "math"
 // time is needed.
 func BpfGen(points []float64, interp *Interpolation) Generator {
 	var interpolate Interpolator
-	if interp == nil || interp.ipl == 0 {
+	if interp == nil || interp.mode == IPLNUM && interp.ipl == 0 {
 		interpolate = func(t, t0, v0, t1, v1 float64) float64 {
 			return v0 + ((t-t0)/(t1-t0))*(v1-v0)
 		}
-	} else if interp.cos {
+	} else if interp.mode == IPLCOS {
 		interpolate = func(t, t0, v0, t1, v1 float64) float64 {
 			x := ((t-t0)/(t1-t0))*math.Pi + math.Pi
 			return v0 + ((v1 - v0) * (1.0 + math.Cos(x)) / 2.0)
 		}
-	} else if interp.off {
+	} else if interp.mode == IPLOFF {
 		interpolate = func(t, t0, v0, t1, v1 float64) float64 {
 			return v0
 		}

@@ -53,8 +53,8 @@ func (p Param) Value(t, t0, t1 float64) float64 {
 }
 
 // Create a new interpolation value.
-func NewInterpolation(val float64, cos, off bool) *Interpolation {
-	ipl := Interpolation{val, cos, off}
+func NewInterpolation(val float64, mode IplMode) *Interpolation {
+	ipl := Interpolation{val, mode}
 	return &ipl
 }
 

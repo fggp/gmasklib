@@ -25,10 +25,17 @@ const (
 	RANDOM
 )
 
+type IplMode int
+
+const (
+	IPLNUM IplMode = iota
+	IPLCOS
+	IPLOFF
+)
+
 type Interpolation struct {
-	ipl float64
-	cos bool
-	off bool
+	ipl  float64
+	mode IplMode
 }
 
 type RndMode int

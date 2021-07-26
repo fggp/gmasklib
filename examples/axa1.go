@@ -50,13 +50,13 @@ func events() string {
 	p.Num, p.Gen = 3, gmasklib.ConstGen(0.04)
 	f.AddParam(p)
 
-	g := gmasklib.BpfGen([]float64{0, 1.44}, gmasklib.NewInterpolation(0, false, true))
+	g := gmasklib.BpfGen([]float64{0, 1.44}, gmasklib.NewInterpolation(0, gmasklib.IPLNUM))
 	p.Num, p.Gen = 4, g
 	f.AddParam(p)
 
 	//p.Num, p.Gen = 5, gmasklib.ConstGen(0.5)
 	p.Num, p.Gen = 5, gmasklib.BpfGen([]float64{0, 0, 2.5, 1, 5, 0}, 
-		gmasklib.NewInterpolation(0, false, true))
+		gmasklib.NewInterpolation(0, gmasklib.IPLOFF))
 	f.AddParam(p)
 
 	var buf bytes.Buffer
