@@ -10,20 +10,22 @@ var orc string = `
 sr     = 44100
 ksmps  = 10
 nchnls = 1
+0dbfs  = 1.0
 
-instr 1
+  instr 1
 
 ;p2 onset
 ;p3 duration
 ;p4 sound file pointer
 
-kenv	oscil		20000,1/p3,2
-aindx	line		p4,p3,p3+p4
-asig	tablei	aindx*sr,1
+kenv  = oscil(0.61, 1/p3, 2)
+aindx = line:a(p4, p3, p3+p4)
+asig  = tablei:a(aindx*sr, 1)
 
-	out		asig*kenv
+     out asig*kenv
 
-endin`
+  endin
+`
 
 var sco string = `
 f1 0 131072 1 "../samples/schwermt.aif" 0 4 1  ;43520
@@ -38,7 +40,7 @@ func events() string {
 	f.AddParam(p)
 
 	g := gmasklib.RndGen(gmasklib.UNI)
-	i := gmasklib.NewInterpolation(1.5, false, false)
+	i := gmasklib.NewInterpolation(1.5, gmasklib.IPLNUM)
 	m := gmasklib.MaskGen(g, gmasklib.BpfGen([]float64{0.2, 0.005}, i),
 		gmasklib.BpfGen([]float64{0.4, 0.01}, i), 1)
 	p.Num, p.Gen, p.Prec = 2, m, 4

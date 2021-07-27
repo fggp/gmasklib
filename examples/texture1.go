@@ -10,21 +10,23 @@ var orc string = `
 sr     = 44100
 ksmps  = 10
 nchnls = 2
+0dbfs  = 1.0
 
-instr 1
+  instr 1
 
 ;p4 frequency
 ;p5 pan (0...1) 
 
-ipanl	table	1-p5 ,1,1
-ipanr	table	p5 ,1,1
+ipanl = table(1-p5, 1, 1)
+ipanr = table(p5, 1, 1)
 
-k1	expon	1,p3,.01
-a1	foscil	k1*4200,p4,1,2.41,k1*6,2
-	
-	outs	a1*ipanl, a1*ipanr
+k1 = expon(1, p3, 0.01)
+a1 = foscil(k1*0.13, p4, 1, 2.41, k1*6, 2)
+  
+     outs  a1*ipanl, a1*ipanr
 
-endin`
+  endin  
+`
 
 var sco string = `
 f1 0 8192 9 .25 1 0
@@ -47,8 +49,10 @@ func events1(ret chan string) {
 	p.Num, p.Gen = 3, gmasklib.RangeGen(0.5, 1)
 	f.AddParam(p)
 
-	b1 := gmasklib.BpfGen([]float64{860, 80}, gmasklib.NewInterpolation(-1.2, false, false))
-	b2 := gmasklib.BpfGen([]float64{940, 2000}, gmasklib.NewInterpolation(1, false, false))
+	b1 := gmasklib.BpfGen([]float64{860, 80},
+		gmasklib.NewInterpolation(-1.2, gmasklib.IPLNUM))
+	b2 := gmasklib.BpfGen([]float64{940, 2000},
+		gmasklib.NewInterpolation(1, gmasklib.IPLNUM))
 	m = gmasklib.MaskGen(g, b1, b2, 1)
 	q := gmasklib.QuantGen(m, 100, 0.9, 0)
 	p.Num, p.Gen = 4, q
@@ -69,7 +73,8 @@ func events2(ret chan string) {
 	p := gmasklib.NewParam(1, gmasklib.ConstGen(1), 5)
 	f.AddParam(p)
 
-	g := gmasklib.BpfGen([]float64{0.08, 0.8}, gmasklib.NewInterpolation(2, false, false))
+	g := gmasklib.BpfGen([]float64{0.08, 0.8},
+		gmasklib.NewInterpolation(2, gmasklib.IPLNUM))
 	p.Num, p.Gen = 2, g
 	f.AddParam(p)
 

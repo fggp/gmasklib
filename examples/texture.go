@@ -10,14 +10,16 @@ var orc string = `
 sr     = 44100
 ksmps  = 10
 nchnls = 2
+0dbfs  = 1.0
 
-instr 1
+  instr 1
 
-k1	oscil	8000*p5,1/p3,1
-a1	oscil	k1,p4,2
-	outs	a1*(1-p6),a1*p6
+k1 = oscil(0.24*p5, 1/p3, 1)
+a1 = oscil:a(k1, p4, 2)
+     outs  a1*(1-p6), a1*p6
 
-endin`
+  endin  
+`
 
 var sco string = `
 f1 0 8193 8 0 4096 1 4096 0
