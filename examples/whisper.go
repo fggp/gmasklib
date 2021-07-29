@@ -10,18 +10,20 @@ var orc string = `
 sr     = 44100
 ksmps  = 10
 nchnls = 2
+0dbfs  = 1.0
 
-instr 1
+  instr 1
 
-ipanl	table	1-p5 ,4,1
-ipanr	table	p5 ,4,1
+ipanl = table(1-p5, 4, 1)
+ipanr = table(p5, 4, 1)
 
-andx	line	p4,p3,p4+p3*p6
-asig	tablei	andx*sr,1
-kamp	oscil	8000,1/p3,2
-		outs	asig*kamp*ipanl, asig*kamp*ipanr  
+andx = line:a(p4, p3, p4+p3*p6)
+asig = tablei:a(andx*sr, 1)
+kamp = oscil(0.25, 1/p3, 2)
+     outs  asig*kamp*ipanl, asig*kamp*ipanr  
 
-endin`
+  endin  
+`
 
 var sco string = `
 f1 0 262144 1 "../samples/whisp.aif" 0 4 1
