@@ -58,7 +58,7 @@ func NewInterpolation(val float64, mode IplMode) *Interpolation {
 	return &ipl
 }
 
-func pVal(p Param, t, start, end float64) float64 {
+func Pval(p Param, t, start, end float64) float64 {
 	v := p.Value(t, start, end)
 	prec := p.Prec
 	if prec < 0 || prec > 5 {
